@@ -176,6 +176,10 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 </ol>
 
 ### Part 2: Build it
+> [!NOTE]
+> **Please send your submission to coaches@schoolrunbook.com.**
+>
+> The video gives an outdated “hello@” email address. Please use **coaches@schoolrunbook.com** instead.
 
 <div class="video-embed">
   <iframe src="https://www.youtube-nocookie.com/embed/fsE8ZMiscMA?rel=0" title="Build your first project: late homework excuse (part 2)" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
