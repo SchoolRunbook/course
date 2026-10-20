@@ -7,14 +7,39 @@ Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
 Complete the steps in order (finish all required steps before the 'bonus' part of step 4). Each step ends with a **Done when:** line so you know you're finished.
 
-1. [Install the Claude desktop app](#1-install-the-claude-desktop-app)
-2. [Create your n8n account](#2-create-your-n8n-account)
-3. [Create your Claude Project](#3-create-your-claude-project)
-4. [Build your first project: late homework excuse](#4-build-your-first-project-late-homework-excuse)
-5. [Prepare for the first class](#5-prepare-for-the-first-class)
-6. [Share your availability for office hours](#6-share-your-availability-for-office-hours)
+1. [Share your availability for office hours](#6-share-your-availability-for-office-hours)
+2. [Install the Claude desktop app](#1-install-the-claude-desktop-app)
+3. [Create your n8n account](#2-create-your-n8n-account)
+4. [Create your Claude Project](#3-create-your-claude-project)
+5. [Build your first project: late homework excuse](#4-build-your-first-project-late-homework-excuse)
+6. [Prepare for the first class](#5-prepare-for-the-first-class)
 
-## 1. Install the Claude desktop app
+## 1. Share your availability for office hours
+
+**Why:** we'll use your preferences to choose office-hour times that work for as many participants as possible.
+
+**Steps:**
+
+Fill out the form below. It asks for your name, up to three preferred weekly time windows, and any availability constraints. Use **US Eastern Time (ET, New York)** for all times. It takes about **3 minutes**.
+
+<p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform" target="_blank" rel="noopener noreferrer">Open the form in a new tab</a>
+</p>
+
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform?embedded=true"
+  title="SchoolRunbook office-hours availability form"
+  width="750"
+  height="600"
+  style="display:block; width:100%; height:700px; border:0;"
+  loading="lazy">
+  Loading…
+</iframe>
+
+
+**Done when:** you've submitted the form and see the thank-you message.
+
+## 2. Install the Claude desktop app
 
 **Why:** Claude is your build partner for every project in this course. Use the desktop app so Claude is one click away while you work in n8n.
 
@@ -24,7 +49,7 @@ Complete the steps in order (finish all required steps before the 'bonus' part o
 
 **Done when:** you can start a new chat in the desktop app and get a reply.
 
-## 2. Create your n8n account
+## 3. Create your n8n account
 
 **Why:** n8n is where you'll build your automations. You'll work in the shared SchoolRunbook workspace, so there's nothing to pay for or install.
 
@@ -40,7 +65,7 @@ Watch this video for an introduction to the n8n tool.
   <iframe src="https://www.youtube-nocookie.com/embed/rl4wWU-m38M?rel=0" title="Introduction to n8n" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
 </div>
 
-## 3. Create your Claude Project
+## 4. Create your Claude Project
 
 **Why:** a Claude Project keeps all your course chats in one place, and its instructions are read at the start of every chat in it. This enables us to give the project instructions once, so you don't have to rewrite them for every chat.
 
@@ -112,7 +137,7 @@ When something breaks, I'll paste the exact error or output. Tell me the likely 
 
 **Done when:** your `SchoolRunbook projects` project has these instructions saved, and Google Drive shows as connected.
 
-## 4. Build your first project: late homework excuse
+## 5. Build your first project: late homework excuse
 
 **Why:** this is a practice run of how we'll build in class, on a small project. Claude writes your project guide (Context, Design and Build tabs), and you build the automation one milestone at a time. Along the way you connect Gmail and Google Sheets to n8n.
 
@@ -215,7 +240,7 @@ Let's add an AI step. Instead of the fixed note, have Claude write a longer, mor
   <li>Run the workflow two or three times. Each excuse should be different.</li>
 </ol>
 
-## 5. Prepare for the first class
+## 6. Prepare for the first class
 
 **Why:** during the first class, we'll build an automation that processes emails sent to a financial inbox. Shortly before the class, you'll receive approximately 20 emails from "admin@schoolrunbook.com" that include sample invoices and more. Follow the steps below to set up a filter to ensure you'll receive and process the emails.
 
@@ -238,28 +263,3 @@ Use Gmail on a computer for these steps; the phone app can't create filters. Sig
 The label name matters: the automation only reads emails labeled `srb-test`, so a different spelling means it finds nothing. When the emails arrive they won't appear in your inbox. To see them, click `srb-test` in Gmail's left sidebar (it may be under **More**).
 
 **Done when:** `srb-test` shows in your Gmail sidebar, and the filter is listed under Settings, See all settings, Filters and Blocked Addresses.
-
-## 6. Share your availability for office hours
-
-**Why:** we'll use your preferences to choose office-hour times that work for as many participants as possible.
-
-**Steps:**
-
-Fill out the form below. It asks for your name, up to three preferred weekly time windows, and any availability constraints. Use **US Eastern Time (ET, New York)** for all times. It takes about **3 minutes**.
-
-<p>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform" target="_blank" rel="noopener noreferrer">Open the form in a new tab</a>
-</p>
-
-<iframe
-  src="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform?embedded=true"
-  title="SchoolRunbook office-hours availability form"
-  width="750"
-  height="2000"
-  style="display:block; width:100%; height:2000px; border:0;"
-  loading="lazy">
-  Loading…
-</iframe>
-
-
-**Done when:** you've submitted the form and see the thank-you message.
