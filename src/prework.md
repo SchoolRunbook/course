@@ -1,11 +1,10 @@
 # Prework
 > **Estimated completion time: 2 hours**
->
 > **Note:** This prework is required before attending. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
+> Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
-Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
-Complete the steps in order (finish all required steps before the 'bonus' part of step 4). Each step ends with a **Done when:** line so you know you're finished.
+Complete the steps in order (finish all required steps before the 'bonus' part of step 5).
 
 1. [Share your availability for office hours](#1-share-your-availability-for-office-hours)
 2. [Install the Claude desktop app](#2-install-the-claude-desktop-app)
