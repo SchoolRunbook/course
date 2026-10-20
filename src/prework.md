@@ -7,12 +7,12 @@ Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
 Complete the steps in order (finish all required steps before the 'bonus' part of step 4). Each step ends with a **Done when:** line so you know you're finished.
 
-1. [Share your availability for office hours](#6-share-your-availability-for-office-hours)
-2. [Install the Claude desktop app](#1-install-the-claude-desktop-app)
-3. [Create your n8n account](#2-create-your-n8n-account)
-4. [Create your Claude Project](#3-create-your-claude-project)
-5. [Build your first project: late homework excuse](#4-build-your-first-project-late-homework-excuse)
-6. [Prepare for the first class](#5-prepare-for-the-first-class)
+1. [Share your availability for office hours](#1-share-your-availability-for-office-hours)
+2. [Install the Claude desktop app](#2-install-the-claude-desktop-app)
+3. [Create your n8n account](#3-create-your-n8n-account)
+4. [Create your Claude Project](#4-create-your-claude-project)
+5. [Build your first project: late homework excuse](#5-build-your-first-project-late-homework-excuse)
+6. [Prepare for the first class](#6-prepare-for-the-first-class)
 
 ## 1. Share your availability for office hours
 
