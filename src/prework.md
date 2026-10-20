@@ -36,9 +36,6 @@ Fill out the form below. It asks for your name, up to three preferred weekly tim
   Loading…
 </iframe>
 
-
-**Done when:** you've submitted the form and see the thank-you message.
-
 ## 2. Install the Claude desktop app
 
 **Why:** Claude is your build partner for every project in this course. Use the desktop app so Claude is one click away while you work in n8n.
