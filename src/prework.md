@@ -1,4 +1,7 @@
 # Prework
+> **Estimated completion time: 2 hours**
+>
+> **Note:** This prework is required before attending. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
 
 Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
@@ -9,6 +12,7 @@ Complete the steps in order (finish all required steps before the 'bonus' part o
 3. [Create your Claude Project](#3-create-your-claude-project)
 4. [Build your first project: late homework excuse](#4-build-your-first-project-late-homework-excuse)
 5. [Prepare for the first class](#5-prepare-for-the-first-class)
+6. [Share your availability for office hours](#6-share-your-availability-for-office-hours)
 
 ## 1. Install the Claude desktop app
 
@@ -29,6 +33,12 @@ Complete the steps in order (finish all required steps before the 'bonus' part o
 3. Bookmark the workspace so you can find it in class: <https://schoolrunbook.app.n8n.cloud/home/workflows>
 
 **Done when:** you can log in and see the SchoolRunbook workspace.
+
+Watch this video for an introduction to the n8n tool.
+
+<div class="video-embed">
+  <iframe src="https://www.youtube-nocookie.com/embed/rl4wWU-m38M?rel=0" title="Introduction to n8n" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+</div>
 
 ## 3. Create your Claude Project
 
@@ -142,7 +152,7 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 
 1. Read the words from my sheet.
 2. Put them into a short, formal note to my teacher explaining why my prework is late.
-3. Email the note from my Gmail to hello@schoolrunbook.com.
+3. Email the note from my Gmail to coaches@schoolrunbook.com.
 
 ## Details you'll need
 
@@ -176,7 +186,7 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 1. In the SchoolRunbook n8n workspace, create a new workflow called `Late homework excuse - [your name]`.
 2. Follow the Build tab one milestone at a time.
 3. Tell Claude when you're ready for the next milestone.
-4. On the last milestone, click **Execute workflow**. Your note goes to hello@schoolrunbook.com.
+4. On the last milestone, click **Execute workflow**. Your note goes to coaches@schoolrunbook.com.
 
 **Stuck?** Go back to the same Claude chat, describe where you are, and paste the error message or a screenshot. If you come back later, start a new chat in the project and paste your guide's link; Claude will pick up where you left off.
 
@@ -224,3 +234,28 @@ Use Gmail on a computer for these steps; the phone app can't create filters. Sig
 The label name matters: the automation only reads emails labeled `srb-test`, so a different spelling means it finds nothing. When the emails arrive they won't appear in your inbox. To see them, click `srb-test` in Gmail's left sidebar (it may be under **More**).
 
 **Done when:** `srb-test` shows in your Gmail sidebar, and the filter is listed under Settings, See all settings, Filters and Blocked Addresses.
+
+## 6. Share your availability for office hours
+
+**Why:** we'll use your preferences to choose office-hour times that work for as many participants as possible.
+
+**Steps:**
+
+Fill out the form below. It asks for your name, up to three preferred weekly time windows, and any availability constraints. Use **US Eastern Time (ET, New York)** for all times. It takes about **3 minutes**.
+
+<p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform" target="_blank" rel="noopener noreferrer">Open the form in a new tab</a>
+</p>
+
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform?embedded=true"
+  title="SchoolRunbook office-hours availability form"
+  width="750"
+  height="2000"
+  style="display:block; width:100%; height:2000px; border:0;"
+  loading="lazy">
+  Loading…
+</iframe>
+
+
+**Done when:** you've submitted the form and see the thank-you message.
