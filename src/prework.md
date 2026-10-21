@@ -1,7 +1,7 @@
 # Prework
 > **Estimated completion time: 2 hours**
 > 
-> **Note:** This prework is required before attending. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
+> **Note:** You must complete prework before thefirst class. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
 >
 > Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
@@ -21,7 +21,7 @@ Complete the steps in order (finish all required steps before the 'bonus' part o
 
 **Steps:**
 
-Fill out the form below. It asks for your name, up to three preferred weekly time windows, and any availability constraints. Use **US Eastern Time (ET, New York)** for all times. It takes about **3 minutes**.
+1. Fill out the form below.
 
 <p>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSefCtnWzjF20B3LNzF4c18RxmYEB-_PaRZfDmrgpRj6M8KJ8Q/viewform" target="_blank" rel="noopener noreferrer">Open the form in a new tab</a>
@@ -41,23 +41,21 @@ Fill out the form below. It asks for your name, up to three preferred weekly tim
 
 **Why:** Claude is your build partner for every project in this course. Use the desktop app so Claude is one click away while you work in n8n.
 
+**Steps:**
 1. Go to [claude.ai/download](https://claude.ai/download) and download the app for your computer (Mac or Windows).
 2. Install it and open it.
 3. Sign in with your Claude account, or create one if you don't have one yet.
-
-**Done when:** you can start a new chat in the desktop app and get a reply.
 
 ## 3. Create your n8n account
 
 **Why:** n8n is where you'll build your automations. You'll work in the shared SchoolRunbook workspace, so there's nothing to pay for or install.
 
+**Steps:**
 1. Look for an email from n8n inviting you to the SchoolRunbook workspace. It goes to the email address you registered for the course with; check spam if you don't see it.
 2. Click the link in the email to create your account. Choose **Sign in with Google**, and use the same Google account you'll use for the course.
 3. Bookmark the workspace so you can find it in class: <https://schoolrunbook.app.n8n.cloud/home/workflows>
 
-**Done when:** you can log in and see the SchoolRunbook workspace.
-
-Watch this video for an introduction to the n8n tool.
+Watch this video for an introduction to n8n.
 
 <div class="video-embed">
   <iframe src="https://www.youtube-nocookie.com/embed/rl4wWU-m38M?rel=0" title="Introduction to n8n" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
@@ -133,7 +131,6 @@ The Build tab tracks my progress. It starts with a short list of milestones, eac
 When something breaks, I'll paste the exact error or output. Tell me the likely cause and the fix, and give me complete replacement code when the code changes.
 ```
 
-**Done when:** your `SchoolRunbook projects` project has these instructions saved, and Google Drive shows as connected.
 
 ## 5. Build your first project: late homework excuse
 
@@ -214,8 +211,6 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 
 **Stuck?** Go back to the same Claude chat, describe where you are, and paste the error message or a screenshot. If you come back later, start a new chat in the project and paste your guide's link; Claude will pick up where you left off.
 
-**Done when:** your guide has Context, Design and Build tabs with every milestone ticked, it's linked in your project instructions, and your note is in your Gmail Sent folder.
-
 ### Bonus: let AI write the excuse (optional)
 
 **Note: before doing this optional exercise, please ensure you complete step 5 below!** The [step 5 video](#5-prepare-for-the-first-class) demos setting up the filter and then this bonus.
@@ -249,7 +244,7 @@ Use Gmail on a computer for these steps; the phone app can't create filters. Sig
 
 1. Click the **Show search options** icon at the right end of the Gmail search bar.
 2. In **From**, type `admin@schoolrunbook.com`, then click **Create filter**.
-3. Tick these three boxes:
+3. Select these three boxes:
     - **Skip the Inbox (Archive it)**
     - **Apply the label:** open the dropdown, choose **New label**, name it `srb-test` exactly as written (lowercase, with the hyphen), and click **Create**
     - **Never send it to Spam**
