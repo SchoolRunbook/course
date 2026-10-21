@@ -1,7 +1,7 @@
 # Prework
 > **Estimated completion time: 2 hours**
 > 
-> **Note:** You must complete prework before thefirst class. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
+> **Note:** You must complete this prework before the first class. It covers the setup and basic principles we will build on during the session. We will not repeat these in class.
 >
 > Finish these steps before Class 1 on Tuesday, Oct 27 at 3:00pm ET.
 
