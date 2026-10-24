@@ -197,7 +197,7 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 
 ### Part 2: Build it
 > [!NOTE]
-> **Please send your submission to coaches@schoolrunbook.com.** The video gives an outdated “hello@” email address.
+> **In milestone 2, use coaches@schoolrunbook.com as the email address in the n8n "to" field for sending your email.** The video shows sending to an outdated “hello@” email address.
 <div class="video-embed">
   <iframe src="https://www.youtube-nocookie.com/embed/fsE8ZMiscMA?rel=0" title="Build your first project: late homework excuse (part 2)" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
 </div>
