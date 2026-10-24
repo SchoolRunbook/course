@@ -72,7 +72,7 @@ Watch this video for an introduction to n8n.
 **Steps:**
 
 1. In the Claude desktop app, open **Projects** and create a new project called `SchoolRunbook projects`.
-2. Open the project's instructions and paste in the text in the box below. Leave `[Links to be added]` as it is; you'll replace it with your first project's link in step 4.
+2. Open the project's instructions and paste in the text in the box below. Leave `[Links to be added]` as it is; you'll replace it with your first project's link in step 5.
 3. Connect Google Drive so Claude can read your sheets: in Claude's settings, open **Connectors**, find Google Drive, and click **Connect**. Sign in with the same Google account you'll use for the course.
 
 ```text
@@ -213,7 +213,7 @@ I'm doing a prework exercise for the SchoolRunbook course. Before class, I need 
 
 ### Bonus: let AI write the excuse (optional)
 
-**Note: before doing this optional exercise, please ensure you complete step 5 below!** The [step 5 video](#5-prepare-for-the-first-class) demos setting up the filter and then this bonus.
+**Note: before doing this optional exercise, please ensure you complete step 6 below!** The [step 6 video](#6-prepare-for-the-first-class) demos setting up the filter and then this bonus.
 
 Once your note is sent, try having AI write a fresh excuse every time. Our n8n workspace already has a Claude credential, so there's nothing new to set up. This is a preview of the AI step you'll build for homework after Class 1.
 
