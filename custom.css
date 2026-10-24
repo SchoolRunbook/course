@@ -18,3 +18,9 @@
   height: 100%;
   border: 0;
 }
+
+/* Wrap long lines in text blocks (prompts) so the whole prompt is readable without scrolling */
+.content pre code.language-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
