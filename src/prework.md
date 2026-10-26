@@ -232,7 +232,7 @@ Let's add an AI step. Instead of the fixed note, have Claude write a longer, mor
 
 ## 6. Prepare for the first class
 
-**Why:** during the first class, we'll build an automation that processes emails sent to a financial inbox. Shortly before the class, you'll receive approximately 20 emails from "admin@schoolrunbook.com" that include sample invoices and more. Follow the steps below to set up a filter to ensure you'll receive and process the emails.
+**Why:** during the first class, we'll build an automation that processes emails sent to a financial inbox. After the class, you'll receive approximately 20 emails from "admin@schoolrunbook.com" that include sample invoices and more. Follow the steps below to set up a filter to ensure you'll receive and process the emails.
 
 <div class="video-embed">
   <iframe src="https://www.youtube-nocookie.com/embed/GiCWr57RZto?rel=0" title="Prepare for the first class: set up the filter, then the bonus" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
