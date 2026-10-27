@@ -19,8 +19,6 @@ Use the same Zoom link for every office-hours session.
 
 ## Class recordings and slides
 
-Recordings and slides are posted here the same day as each class.
-
 | Class | Recording | Slides |
 | --- | --- | --- |
 | Class 1 · Oct 27 |  |  |
