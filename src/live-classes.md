@@ -20,7 +20,7 @@
 
 | Class | Recording | Slides |
 | --- | --- | --- |
-| Class 1 · Oct 27 | https://youtu.be/KemriUywYcc | [View slides](https://claude.ai/artifact/LWNGc4Lr8HRrqK2HR6zaeg#slide-3dd33bdac6c2) |
+| Class 1 · Oct 27 | [Youtube](https://youtu.be/KemriUywYcc) | [View slides](https://claude.ai/artifact/LWNGc4Lr8HRrqK2HR6zaeg#slide-3dd33bdac6c2) |
 | Class 2 · Nov 3 |  |  |
 | Class 3 · Nov 10 |  |  |
 | Class 4 · Nov 17 |  |  |
