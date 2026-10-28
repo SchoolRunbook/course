@@ -34,7 +34,7 @@ Complete the steps in order:
 
 Leave the Bills tab as it is. Claude's Build tab walks you through making the Automation - Rules tab the workflow writes to.
 
-**Check your test emails:** in Gmail, click the `srb-test` label in the left sidebar (it may be under **More**). You should see 18 test emails. If the label is missing or empty, email coaches@schoolrunbook.com.
+**Check your test emails:** in Gmail, click the `srb-test` label in the left sidebar (it may be under **More**). You should see 16 conversations (18 test emails, but two arrive as replies inside existing threads, so Gmail groups them). If the label is missing or empty, email coaches@schoolrunbook.com.
 
 ## 2. Start your project guide
 
