@@ -1,13 +1,11 @@
-# Live classes
+# Live sessions
 
 ## Office hours
 
 > [!IMPORTANT]
-> **Office hours this week: October 26 – November 2, 2026**
->
 > Join any of the sessions below for help with your course projects. **All times are Eastern Time (ET).**
 >
-> **Use the same Zoom link for every office-hours session.**
+> **We use the same Zoom link for all office hours**
 
 ### [Join office hours on Zoom](https://us06web.zoom.us/j/85708553456?pwd=SZobVNAalu8OwtQyQMvWB1jQk9a9z9.1)
 
