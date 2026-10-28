@@ -1,5 +1,5 @@
 # Summary
-[Live classes and office hours](live-classes.md)
+[Live sessions](live-classes.md)
 
 [Prework](prework.md)
 
