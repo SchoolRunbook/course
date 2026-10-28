@@ -3,7 +3,7 @@
 ## Office hours
 
 > [!IMPORTANT]
-> **Office hours this week: October 26–30, 2026**
+> **Office hours this week: October 26 – November 2, 2026**
 >
 > Join any of the sessions below for help with your course projects. **All times are Eastern Time (ET).**
 >
@@ -16,6 +16,7 @@
 | Wednesday | October 28 | 4:00–6:00 PM |
 | Thursday | October 29 | 3:00–5:00 PM |
 | Friday | October 30 | 3:00–5:00 PM |
+| Monday | November 2 | 11:00 AM – 1:00 PM |
 
 ## Class recordings and slides
 
