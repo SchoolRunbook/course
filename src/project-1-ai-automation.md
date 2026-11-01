@@ -74,11 +74,9 @@ Everyone starts here once their rules workflow works.
 3. Copy the prompt below and replace **[paste your Google Sheet link here]** with the link to your tracker. Send it with the JSON attached, then follow Claude’s guidance in your **AI copy**, one step at a time.
 
 ```text
-Link to Google Sheets: [paste your Google Sheet link here]
+I've attached a JSON of the workflow I built in n8n using rules. I've made a copy of this workflow, and want to change the PDF reading to use AI. 
 
-I have attached the completed JSON of the rules-based automation. I am now working in a copy of the rules-based automation.
-
-Let’s use AI to read all the attachments on each email, including PDFs, images and spreadsheets, so we don’t miss important information when the files look different.
+I want to replace the step that reads PDFs with AI so that the data is accurate even when the email has different types of attachments.
 ```
 
 ## 2. Let Claude sort the emails
