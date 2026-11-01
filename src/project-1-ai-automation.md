@@ -33,7 +33,7 @@ A JSON file is a saved copy of a workflow. Importing it adds the nodes and conne
 3. Click the **three dots (⋯)** beside the workflow’s name at the top.
 4. Choose **Import → From file**.
 5. Select **Finance Inbox Tracker - Rules.json** from Downloads and click **Open**.
-6. Rename the workflow **Finance Inbox Tracker - Rules - [your name]**.
+6. Rename the workflow **[your name] - Finance Inbox Tracker - Rules**.
 
 ![Import the rules workflow: open the three-dot menu, choose Import and From file, select the JSON, then click Open.](n8n-import-json.gif)
 
@@ -53,10 +53,10 @@ Your imported rules workflow should look like this. It reads the sheet before so
 
 Everyone starts here once their rules workflow works.
 
-1. Open your working rules workflow in n8n.
-2. Click the **three dots (⋯)** beside its name and choose **Duplicate**.
-3. Name the new copy **Finance Inbox Tracker - AI - [your name]**. Make the AI changes in this copy so you can compare it with your rules version later.
-4. Go back to your **rules workflow**. Click **⋯ → Export JSON**. The file downloads to your computer, usually into Downloads.
+1. Open your working **rules workflow** in n8n.
+2. Click the **three dots (⋯)** beside its name and choose **Export JSON**. The file downloads to your computer, usually into Downloads.
+3. In the same rules workflow, open the **three-dot menu (⋯)** again and choose **Duplicate**.
+4. Name the new copy **[your name] - Finance Inbox Tracker - AI**. Make the AI changes in this copy so you can compare it with your rules version later.
 
 ![Export your working rules workflow by opening the three-dot menu and clicking Export JSON.](n8n-export-json.gif)
 
