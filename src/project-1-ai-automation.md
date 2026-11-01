@@ -75,6 +75,9 @@ Everyone starts here once their rules workflow works.
 
 ```text
 Link to Google Sheets: [paste your Google Sheet link here]
+
+I have attached the completed JSON of the rules-based automation. I am now working in a copy of the rules-based automation.
+
 Let’s use AI to read all the attachments on each email, including PDFs, images and spreadsheets, so we don’t miss important information when the files look different.
 ```
 
