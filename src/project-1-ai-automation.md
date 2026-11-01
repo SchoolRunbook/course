@@ -71,7 +71,7 @@ Everyone starts here once their rules workflow works.
 
 1. Open the **same Finance Inbox Tracker chat** inside your **SchoolRunbook projects** project in Claude.
 2. Use the chat’s attachment button to attach the **working rules JSON you just exported**.
-3. Copy the prompt below and replace **[paste your Google Sheet link here]** with the link to your tracker. Send it with the JSON attached, then follow Claude’s guidance in your **AI copy**, one step at a time.
+3. Copy the prompt below and send it with the JSON attached, then follow Claude’s guidance in your **AI copy**, one step at a time.
 
 ```text
 I've attached a JSON of the workflow I built in n8n using rules. I've made a copy of this workflow, and want to change the PDF reading to use AI. 
