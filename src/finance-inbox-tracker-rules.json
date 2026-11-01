@@ -1,0 +1,724 @@
+{
+  "name": "Finance Inbox Tracker - Rules",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "92cc8afc-eb2c-4517-b8bc-94a8208c5bdf",
+      "name": "Run Tracker"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "simple": false,
+        "filters": {
+          "q": "label:srb-test -label:srb-done",
+          "readStatus": "both"
+        },
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        0
+      ],
+      "id": "adef3c59-2928-415c-9747-537856029e66",
+      "name": "Get Test Emails",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sort Emails: sorts every email into a category, matches invoices to rows already\n// on the bills tab, works out the Review flags, and outputs three kinds of item:\n//   kind 'add'    -> a new bill row          (Add Bill Rows)\n//   kind 'update' -> Review/Updates changes   (Update Bill Rows)\n//   kind 'log'    -> one row per email        (Log Emails, Mark Done)\n// Reads: Get Test Emails (emails), Read PDFs (PDF text), Get Bill Rows (the sheet).\n// Settings: Mode = Run Once for All Items, Language = JavaScript.\n\n// ---------- Rules ----------\nconst CAMPUSES = [\n  { name: 'Northview High', pattern: /\\bnorthview\\b/i },\n  { name: 'Eastlake Middle', pattern: /\\beastlake\\b/i },\n  { name: 'Westside Elementary', pattern: /\\bwestside\\b/i },\n];\nconst SCHOOL_SIGNOFF = /inspireawesomeness academy|northview high|eastlake middle|westside elementary/i;\n\n// Categories, checked in this order; the first match wins.\nconst SUSPICIOUS = /\\b(venmo|zelle|cash ?app|gift ?cards?)\\b|\\bbank(ing)? (details|information|info)\\b|\\bchanged (our )?banks?\\b|\\bnew (bank )?account\\b|\\brouting number\\b/i;\nconst REIMBURSEMENT = /\\breimburs/i;\nconst STATEMENT_CREDIT = /\\bcredit memo\\b|\\bmonthly statement\\b|\\baccount statement\\b/i;\nconst RECEIPT = /(?<!on )\\breceipt\\b|\\bpayment received\\b|\\breceived your payment\\b|\\bpayment confirmation\\b|\\bthank you for your payment\\b|\\bpaid in full\\b|\\bdeposit received\\b|\\breceived your deposit\\b/i;\nconst MARKETING = /\\bnewsletter\\b|\\bunsubscribe\\b|\\bearly bird\\b|\\bregister now\\b|\\bwebinar\\b/i;\nconst INVOICE_WORDS = /\\binvoice\\b|\\bbill\\b|\\bamount due\\b|\\bbalance due\\b|\\btotal due\\b|\\bpayment due\\b|\\bdue date\\b/i;\nconst BILL_CATEGORIES = ['Possible fraud', 'Invoice'];\n\n// Network-wide wording for the Campus column. (Naming all three campuses also counts as Network.)\nconst NETWORK = /\\b(whole|entire) network\\b|\\ball (three |3 )?(of our )?campuses\\b|\\bnetwork[- ]wide\\b/i;\n\n// Review flags\nconst STICKY_FLAGS = ['Possible fraud', 'Changed after approval'];\nconst DECIDED = ['approved', 'paid', 'denied'];\nconst APPROVED = ['approved', 'paid'];\nconst TODAY = DateTime.now().setZone('America/New_York').startOf('day');\n\n// ---------- Helpers ----------\nconst MONEY = '\\\\$\\\\s?(\\\\d[\\\\d,]*(?:\\\\.\\\\d{2})?)';\nconst AMOUNT_LABELS = ['amount now due', 'amount due', 'amount owed', 'balance due', 'total due', 'invoice total', 'total'];\nconst DATE = '(\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}|\\\\d{4}-\\\\d{2}-\\\\d{2}|[A-Za-z]{3,9}\\\\.?\\\\s+\\\\d{1,2},?\\\\s+\\\\d{4})';\nconst DUE_DATE = new RegExp('\\\\bdue\\\\b(?:\\\\s+date)?(?:\\\\s+(?:is|was|by|on))?\\\\s*[:\\\\-]?\\\\s*' + DATE, 'i');\nconst INVOICE_NUMBER = /\\binvoice\\b\\s*(?:#|no\\.?|number|id)?\\s*[:#]?\\s*([A-Z0-9][A-Z0-9-]*\\d[A-Z0-9-]*)/i;\nconst MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };\n\nconst pad = (n) => String(n).padStart(2, '0');\n\nfunction formatMoney(raw) {\n  const n = parseFloat(String(raw).replace(/,/g, ''));\n  if (isNaN(n)) return '';\n  return '$' + n.toFixed(2).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',');\n}\n\nfunction toIsoDate(raw) {\n  let m = raw.match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{4})$/);\n  if (m) return `${m[3]}-${pad(m[1])}-${pad(m[2])}`;\n  m = raw.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);\n  if (m) return raw;\n  m = raw.match(/^([A-Za-z]{3,9})\\.?\\s+(\\d{1,2}),?\\s+(\\d{4})$/);\n  if (m) {\n    const month = MONTHS[m[1].slice(0, 3).toLowerCase()];\n    if (month) return `${m[3]}-${pad(month)}-${pad(m[2])}`;\n  }\n  return '';\n}\n\nfunction receivedDate(iso) {\n  if (!iso) return '';\n  try {\n    if (typeof DateTime !== 'undefined') return DateTime.fromISO(String(iso)).toFormat('yyyy-MM-dd');\n  } catch (e) { /* fall through */ }\n  return String(iso).slice(0, 10);\n}\n\nfunction findAmount(text) {\n  for (const label of AMOUNT_LABELS) {\n    const re = new RegExp('\\\\b' + label.replace(/ /g, '\\\\s+') + '\\\\b[^\\\\n$]{0,80}?' + MONEY, 'i');\n    const m = text.match(re);\n    if (m) return formatMoney(m[1]);\n  }\n  const before = text.match(new RegExp(MONEY + '\\\\s+total\\\\b', 'i'));\n  if (before) return formatMoney(before[1]);\n  const first = text.match(new RegExp(MONEY));\n  return first ? formatMoney(first[1]) : '';\n}\n\nfunction findVendor(email, body) {\n  // A forwarded invoice: use the original sender from the forwarded message.\n  const fwd = body.match(/forwarded message[\\s\\S]*?\\bFrom:\\s*\"?([^<\"\\n]+?)\"?\\s*</i);\n  if (fwd) return fwd[1].trim();\n  const sender = (email.from && email.from.value && email.from.value[0]) || {};\n  if (sender.name && sender.name.trim()) return sender.name.replace(/\"/g, '').trim();\n  if (sender.address && sender.address.includes('@')) return sender.address.split('@')[1];\n  return '';\n}\n\nfunction findCampus(text) {\n  if (NETWORK.test(text)) return { campus: 'Network', note: '' };\n  const named = CAMPUSES.filter((c) => c.pattern.test(text)).map((c) => c.name);\n  // All three campuses named (e.g. one charge per campus) means the bill covers the whole network.\n  if (named.length === CAMPUSES.length) return { campus: 'Network', note: '' };\n  if (named.length === 1) return { campus: named[0], note: '' };\n  if (named.length === 0) return { campus: '', note: 'Campus not stated.' };\n  const list = named.length === 2\n    ? named.join(' and ')\n    : named.slice(0, -1).join(', ') + ' and ' + named[named.length - 1];\n  return { campus: '', note: `Campus unclear: ${list} named.` };\n}\n\n// Look in the email first; use the PDF only if the email doesn't say.\nfunction emailThenPdf(find, emailText, pdfText) {\n  const fromEmail = find(emailText);\n  if (fromEmail || !pdfText) return fromEmail;\n  return find(pdfText);\n}\n\nfunction findInvoiceNumber(text) {\n  const m = text.match(INVOICE_NUMBER);\n  return m ? m[1] : '';\n}\n\nfunction findDueDate(text) {\n  const m = text.match(DUE_DATE);\n  return m ? toIsoDate(m[1]) : '';\n}\n\nfunction bodyText(email) {\n  if (email.text) return String(email.text);\n  if (email.html) return String(email.html).replace(/<[^>]+>/g, ' ');\n  return '';\n}\n\nfunction categorise(all, body) {\n  if (SUSPICIOUS.test(all)) return 'Possible fraud';\n  if (REIMBURSEMENT.test(all)) return 'Reimbursement request';\n  if (STATEMENT_CREDIT.test(all)) return 'Statement or credit';\n  if (RECEIPT.test(all)) return 'Receipt or payment confirmation';\n  if (MARKETING.test(all)) return 'Newsletter or marketing';\n  if (INVOICE_WORDS.test(all)) return 'Invoice';\n  if (SCHOOL_SIGNOFF.test(body.trim().slice(-200))) return 'Staff request';\n  return 'Other';\n}\n\n// Matching: same invoice number (ignoring case, spaces, a leading #) and same first word of vendor.\nfunction matchKey(invoiceNumber, vendor) {\n  const inv = String(invoiceNumber ?? '').toUpperCase().replace(/\\s+/g, '').replace(/^#/, '');\n  if (!inv) return '';\n  const first = String(vendor ?? '').trim().split(/\\s+/)[0].toLowerCase().replace(/[^a-z0-9]/g, '');\n  return inv + '|' + first;\n}\n\nfunction cell(row, name) {\n  const v = row[name];\n  return v === undefined || v === null ? '' : String(v).trim();\n}\n\nfunction toNumber(value) {\n  const n = parseFloat(String(value ?? '').replace(/[$,\\s]/g, ''));\n  return isNaN(n) ? null : n;\n}\n\n// A due date from the sheet: 2026-10-22, 10/22/2026, October 22, 2026, or a Sheets date number.\nfunction sheetDate(value) {\n  if (value === undefined || value === null || value === '') return '';\n  if (typeof value === 'number') {\n    return DateTime.fromObject({ year: 1899, month: 12, day: 30 }).plus({ days: Math.floor(value) }).toFormat('yyyy-MM-dd');\n  }\n  return toIsoDate(String(value).trim());\n}\n\nfunction dueFlag(dueIso, status) {\n  if (!dueIso || DECIDED.includes(status)) return '';\n  const days = Math.round(DateTime.fromISO(dueIso, { zone: 'America/New_York' }).startOf('day').diff(TODAY, 'days').days);\n  if (days < 0) return `Overdue by ${-days} day${days === -1 ? '' : 's'}`;\n  if (days === 0) return 'Due today';\n  if (days <= 7) return `Due in ${days} day${days === 1 ? '' : 's'}`;\n  return '';\n}\n\nfunction missingFlag(bill, status) {\n  if (status !== '' && status !== 'new') return '';\n  const blanks = [];\n  if (!bill.vendor) blanks.push('vendor');\n  if (!bill.invoiceNumber) blanks.push('invoice #');\n  if (!bill.amount) blanks.push('amount');\n  if (!bill.dueDate) blanks.push('due date');\n  if (!bill.campus) blanks.push('campus');\n  return blanks.length ? 'Missing: ' + blanks.join(', ') : '';\n}\n\nfunction reviewText(bill) {\n  const status = bill.status.toLowerCase();\n  const parts = STICKY_FLAGS.filter((f) => bill.sticky.has(f));\n  const due = dueFlag(bill.dueDate, status);\n  if (due) parts.push(due);\n  const missing = missingFlag(bill, status);\n  if (missing) parts.push(missing);\n  return parts.join('; ');\n}\n\n// ---------- Read the inputs ----------\nconst pdfByEmail = {};\n$('Read PDFs').all().forEach((p, i) => {\n  const src = p.pairedItem && typeof p.pairedItem.item === 'number' ? p.pairedItem.item : i;\n  pdfByEmail[src] = typeof p.json.text === 'string' ? p.json.text : '';\n});\n\n// Bills already on the sheet (rows Marcus typed included).\nconst bills = [];\nconst billsByKey = {};\n$('Get Bill Rows').all().forEach((item) => {\n  const r = item.json;\n  if (!r.row_number) return; // empty sheet\n  const existingReview = cell(r, 'Review');\n  const bill = {\n    rowNumber: r.row_number,\n    isNew: false,\n    vendor: cell(r, 'Vendor'),\n    invoiceNumber: cell(r, 'Invoice #'),\n    amount: cell(r, 'Amount'),\n    dueDate: sheetDate(r['Due date']),\n    campus: cell(r, 'Campus'),\n    status: cell(r, 'Status'),\n    oldReview: existingReview,\n    oldUpdates: cell(r, 'Updates'),\n    updates: [],\n    sticky: new Set(existingReview.split(';').map((s) => s.trim()).filter((s) => STICKY_FLAGS.includes(s))),\n  };\n  bills.push(bill);\n  const key = matchKey(bill.invoiceNumber, bill.vendor);\n  if (key && !billsByKey[key]) billsByKey[key] = bill;\n});\n\n// Emails, oldest first (skip the empty item a run with no new emails produces).\nconst emails = [];\n$('Get Test Emails').all().forEach((item, i) => {\n  if (item.json && item.json.id) emails.push({ email: item.json, pdfText: pdfByEmail[i] || '' });\n});\nemails.sort((a, b) => String(a.email.date || '').localeCompare(String(b.email.date || '')));\n\n// ---------- Sort each email ----------\nconst logItems = [];\nfor (const { email, pdfText } of emails) {\n  const subject = email.subject || '';\n  const body = bodyText(email);\n  const emailText = subject + '\\n' + body;\n  const all = emailText + '\\n' + pdfText;\n  const category = categorise(all, body);\n  const received = receivedDate(email.date);\n  const link = 'https://mail.google.com/mail/u/0/#all/' + email.id;\n  const sender = (email.from && email.from.value && email.from.value[0]) || {};\n  let result = 'Logged only';\n\n  if (BILL_CATEGORIES.includes(category)) {\n    const suspicious = category === 'Possible fraud';\n    const vendor = findVendor(email, body);\n    const invoiceNumber = emailThenPdf(findInvoiceNumber, emailText, pdfText);\n    const amount = emailThenPdf(findAmount, emailText, pdfText);\n    const dueDate = emailThenPdf(findDueDate, emailText, pdfText);\n    const key = matchKey(invoiceNumber, vendor);\n    const match = key ? billsByKey[key] : null;\n\n    if (match) {\n      // A resend, reminder, forward or fraud email for a bill already there: note it, don't change the row.\n      let line = `${received}: ${suspicious ? 'possible fraud email' : 'follow-up email'} '${subject}'.`;\n      const rowAmount = toNumber(match.amount);\n      const emailAmount = toNumber(amount);\n      if (emailAmount !== null && rowAmount !== null && Math.abs(emailAmount - rowAmount) > 0.005) line += ` Amount in this email: ${amount}.`;\n      if (dueDate && match.dueDate && dueDate !== match.dueDate) line += ` Due date in this email: ${dueDate}.`;\n      match.updates.push(line);\n      if (suspicious) match.sticky.add('Possible fraud');\n      if (!match.isNew && APPROVED.includes(match.status.toLowerCase())) match.sticky.add('Changed after approval');\n      result = 'Added to existing bill';\n    } else {\n      let campusResult = findCampus(emailText);\n      if (!campusResult.campus && campusResult.note === 'Campus not stated.' && pdfText) campusResult = findCampus(pdfText);\n      const { campus, note: campusNote } = campusResult;\n      const notes = [];\n      if (suspicious) notes.push('Needs review: possible fraud.');\n      if (!vendor) notes.push('Vendor not stated.');\n      if (!invoiceNumber) notes.push('Invoice # not stated.');\n      if (!amount) notes.push('Amount not stated.');\n      if (!dueDate) notes.push('Due date not stated.');\n      if (campusNote) notes.push(campusNote);\n      const bill = {\n        isNew: true, received, vendor, invoiceNumber, amount, dueDate, campus, status: 'New',\n        notes: notes.join(' '), link, updates: [], sticky: new Set(suspicious ? ['Possible fraud'] : []),\n      };\n      bills.push(bill);\n      if (key) billsByKey[key] = bill;\n      result = 'New bill row';\n    }\n  }\n\n  logItems.push({\n    json: {\n      kind: 'log',\n      'Date received': received,\n      'From': (sender.name || sender.address || '').replace(/\"/g, '').trim(),\n      'Subject': subject,\n      'Category': category,\n      'Result': result,\n      'Email link': link,\n      emailId: email.id,\n    },\n    pairedItem: { item: 0 },\n  });\n}\n\n// ---------- Build the output ----------\nconst results = [];\nfor (const bill of bills) {\n  const review = reviewText(bill);\n  if (bill.isNew) {\n    results.push({\n      json: {\n        kind: 'add',\n        'Date received': bill.received,\n        'Vendor': bill.vendor,\n        'Invoice #': bill.invoiceNumber,\n        'Amount': bill.amount,\n        'Due date': bill.dueDate,\n        'Campus': bill.campus,\n        'Status': 'New',\n        'Paid date': '',\n        'Notes': bill.notes,\n        'Review': review,\n        'Updates': bill.updates.join('\\n'),\n        'Email link': bill.link,\n      },\n      pairedItem: { item: 0 },\n    });\n  } else {\n    const updates = [bill.oldUpdates, ...bill.updates].filter(Boolean).join('\\n');\n    if (review !== bill.oldReview || updates !== bill.oldUpdates) {\n      results.push({\n        json: { kind: 'update', row_number: bill.rowNumber, 'Vendor': bill.vendor, 'Invoice #': bill.invoiceNumber, 'Review': review, 'Updates': updates },\n        pairedItem: { item: 0 },\n      });\n    }\n  }\n}\n\nreturn results.concat(logItems);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        0
+      ],
+      "id": "87386665-9df2-4592-85f7-ba51302454e3",
+      "name": "Sort Emails"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Automation - Rules",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date received": "={{ $json['Date received'] }}",
+            "Vendor": "={{ $json.Vendor }}",
+            "Invoice #": "={{ $json['Invoice #'] }}",
+            "Amount": "={{ $json.Amount }}",
+            "Due date": "={{ $json['Due date'] }}",
+            "Campus": "={{ $json.Campus }}",
+            "Status": "={{ $json.Status }}",
+            "Paid date": "={{ $json['Paid date'] }}",
+            "Notes": "={{ $json.Notes }}",
+            "Review": "={{ $json.Review }}",
+            "Updates": "={{ $json.Updates }}",
+            "Email link": "={{ $json['Email link'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date received",
+              "displayName": "Date received",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Vendor",
+              "displayName": "Vendor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Invoice #",
+              "displayName": "Invoice #",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Due date",
+              "displayName": "Due date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Campus",
+              "displayName": "Campus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Paid date",
+              "displayName": "Paid date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Updates",
+              "displayName": "Updates",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email link",
+              "displayName": "Email link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1200,
+        -160
+      ],
+      "id": "fe24a460-84e1-4f86-8534-399c59ea89fa",
+      "name": "Add Bill Rows"
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.emailId }}",
+        "labelIds": []
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        336
+      ],
+      "id": "1845a4bb-ca3f-40e7-ba0b-5f798631c55a",
+      "name": "Mark Done"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "attachment_0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        0
+      ],
+      "id": "bc6c1c28-27d5-4329-8409-ce7a0d7bb9f8",
+      "name": "Read PDFs",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Automation - Rules",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        512,
+        0
+      ],
+      "id": "1e8d6590-964a-47a3-b64d-7c47828279fd",
+      "name": "Get Bill Rows",
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.kind }}",
+                    "rightValue": "add",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ef4f7aba-6f10-401e-b5ef-a000ed44c1ff"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "add"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "71b92d9a-7b61-488e-84a2-cfb7fa1d948e",
+                    "leftValue": "={{ $json.kind }}",
+                    "rightValue": "update",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "update"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "d3587692-d4b5-4934-9033-9f834dcc778e",
+                    "leftValue": "={{ $json.kind }}",
+                    "rightValue": "log",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "log"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        880,
+        -16
+      ],
+      "id": "2ea30f80-61fc-4c23-a18d-0d31aae59615",
+      "name": "Route Items"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Automation - Rules",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Review": "={{ $json.Review || ' ' }}",
+            "Updates": "={{ $json.Updates }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Date received",
+              "displayName": "Date received",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Vendor",
+              "displayName": "Vendor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Invoice #",
+              "displayName": "Invoice #",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Due date",
+              "displayName": "Due date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Campus",
+              "displayName": "Campus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Paid date",
+              "displayName": "Paid date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Updates",
+              "displayName": "Updates",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email link",
+              "displayName": "Email link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1200,
+        0
+      ],
+      "id": "b48563f1-fead-4050-8c52-f4641893d40b",
+      "name": "Update Bill Rows"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Inbox Log",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date received": "={{ $json['Date received'] }}",
+            "From": "={{ $json.From }}",
+            "Subject": "={{ $json.Subject }}",
+            "Category": "={{ $json.Category }}",
+            "Result": "={{ $json.Result }}",
+            "Email link": "={{ $json['Email link'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date received",
+              "displayName": "Date received",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "From",
+              "displayName": "From",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Result",
+              "displayName": "Result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email link",
+              "displayName": "Email link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1200,
+        144
+      ],
+      "id": "3271ad49-6180-4da2-8504-98583266f088",
+      "name": "Log Emails"
+    }
+  ],
+  "connections": {
+    "Run Tracker": {
+      "main": [
+        [
+          {
+            "node": "Get Test Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Test Emails": {
+      "main": [
+        [
+          {
+            "node": "Read PDFs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort Emails": {
+      "main": [
+        [
+          {
+            "node": "Route Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read PDFs": {
+      "main": [
+        [
+          {
+            "node": "Get Bill Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Bill Rows": {
+      "main": [
+        [
+          {
+            "node": "Sort Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Items": {
+      "main": [
+        [
+          {
+            "node": "Add Bill Rows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Bill Rows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Emails",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Emails": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
