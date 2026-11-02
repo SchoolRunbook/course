@@ -58,6 +58,8 @@ Everyone starts here once their rules workflow works.
 3. In the same rules workflow, open the **three-dot menu (⋯)** again and choose **Duplicate**.
 4. Name the new copy **[your name] - Finance Inbox Tracker - AI**. Make the AI changes in this copy so you can compare it with your rules version later.
 
+<a id="export-workflow-json"></a>
+
 ![Export your working rules workflow by opening the three-dot menu and clicking Export JSON.](n8n-export-json.gif)
 
 > [!NOTE]
@@ -119,4 +121,14 @@ Let’s add a short, plain-language description of what each bill is for on its 
 ```text
 Let’s add an expense category to each bill, such as transport, software or repairs, so Marcus can group similar costs on the sheet. Help me decide what the categories should be.
 ```
+
+## Submit your project
+
+> [!IMPORTANT]
+> **Submit your completed Project 1: Finance Inbox Tracker**
+>
+> Export your **completed AI workflow** as a JSON file, including any stretch tasks you completed, then **[submit your final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSeZyMK5wZg8It8Ki1AZHKvlgfr_Xx39TuqAu0FPcAkUiccVYw/viewform?usp=dialog)**.
+>
+> For a reminder, [watch the JSON export GIF](#export-workflow-json) and follow those steps on your **completed AI workflow**.
+
 
