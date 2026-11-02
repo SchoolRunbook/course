@@ -137,6 +137,6 @@ Let’s add a Summary tab that updates after each run. For the bills from all em
 >
 > Export your **completed AI workflow** as a JSON file, including any stretch tasks you completed, then **[submit your final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSeZyMK5wZg8It8Ki1AZHKvlgfr_Xx39TuqAu0FPcAkUiccVYw/viewform?usp=dialog)**.
 >
-> For a reminder, [watch the JSON export GIF](#export-workflow-json) and follow those steps on your **completed AI workflow**.
+> [Find instructions here on how to export your JSON file](#make-your-ai-copy). Follow the steps on your **completed AI workflow**.
 
 
