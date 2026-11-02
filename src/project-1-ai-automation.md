@@ -63,10 +63,9 @@ Everyone starts here once their rules workflow works.
 ![Export your working rules workflow by opening the three-dot menu and clicking Export JSON.](n8n-export-json.gif)
 
 > [!IMPORTANT]
-> Duplicating the workflow copies its settings, including the sheet and Gmail labels it uses. Before you run this copy, Claude will guide you through testing it. Expect two changes:
+> Duplicating the workflow copies its settings, including the sheet and Gmail labels it uses. Before you run this copy, Claude will guide you through testing it.
 >
-> - **A new tab for AI results.** The AI copy writes to a new tab on the same sheet, such as **Automation - AI**, so you can compare its rows with your Automation - Rules tab.
-> - **Reset your test emails before each test run.** Your rules runs already marked every test email **srb-done**, so the AI copy would find none. In Gmail, search for `label:srb-done`, select all, click the label icon (a tag shape), untick **srb-done** and click **Apply**.
+> **Reset your test emails before each test run.** Your rules runs already marked every test email **srb-done**, so the AI copy would find none. In Gmail, search for `label:srb-done`, select all, click the label icon (a tag shape), untick **srb-done** and click **Apply**.
 
 ## 1. Let Claude read the attachments
 
