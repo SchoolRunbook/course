@@ -122,6 +122,14 @@ Let’s add a short, plain-language description of what each bill is for on its 
 Let’s add an expense category to each bill, such as transport, software or repairs, so Marcus can group similar costs on the sheet. Help me decide what the categories should be.
 ```
 
+### See what has been paid and what is still owed
+
+**Why:** Marcus can see every bill, but he still has to add up what’s been paid, what’s unpaid and what’s late. A Summary tab puts those totals in one place and shows the period covered by the emails the tracker has processed.
+
+```text
+Let’s add a Summary tab that updates after each run. For the bills from all emails processed so far, show the date range covered by those emails, the total paid, the total still outstanding and how much of that outstanding amount is past due. Base the totals on Marcus’s recorded bill statuses, excluding denied bills, and count each bill once.
+```
+
 ## Submit your project
 
 > [!IMPORTANT]
