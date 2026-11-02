@@ -99,3 +99,24 @@ Your AI workflow should follow this order:
 **Get emails → AI reads attachments → Read existing bills → AI sorts emails → Route items → Update the sheet and mark emails done.**
 
 Claude may add a few supporting nodes. What matters is that both AI steps work and the rest of Marcus’s process stays the same.
+
+## Stretch tasks
+
+Finish both AI steps first, then pick a task. Copy its prompt into the **same Finance Inbox Tracker chat in Claude** and follow its guidance in your **AI workflow**.
+
+### Explain what each bill is for
+
+**Why:** a vendor’s name and an amount may not explain what the school bought. A short description on each bill’s row lets Marcus understand the charge without reopening the email and attachments.
+
+```text
+Let’s add a short, plain-language description of what each bill is for on its row, so Marcus can understand the charge from the sheet.
+```
+
+### Group bills by what the school is buying
+
+**Why:** bills for similar expenses can come from different vendors. Giving each bill an expense category, such as transport, software or repairs, helps Marcus find related costs together on the sheet.
+
+```text
+Let’s add an expense category to each bill, such as transport, software or repairs, so Marcus can group similar costs on the sheet. Help me decide what the categories should be.
+```
+
