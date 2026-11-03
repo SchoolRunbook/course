@@ -87,6 +87,8 @@ If the run shows an error or no emails are processed, ask a TA for help before m
 
 4. Send the prompt with the JSON attached. Follow Claude’s guidance in your **Class 2 workflow**, one step at a time, to build and test attachment reading.
 
+**Before each test run:** [reset Gmail](#4-reset-gmail) so the workflow can read the practice emails again. The setup run marked them all **srb-done**.
+
 **Done when:** a test run fills your AI tabs, and the rows include details from scanned files and from every attachment on emails with more than one.
 
 ```text
@@ -114,6 +116,7 @@ Continue once attachment reading is working. In the **same Claude chat**, send t
 ```text
 Now let's use AI to understand and sort emails and invoices, even when their wording or layout is unfamiliar, and decide what to add or update using the email, all its attachments and the bills already on the sheet. I want to still keep the same business rules.
 ```
+**Before each test run:** [reset Gmail](#4-reset-gmail) again, since your Round 1 test runs marked the emails **srb-done**.
 
 **Done when:** a test run sorts every email into your AI tabs with no errors, and a reminder email updates its existing bill instead of adding a new row.
 
