@@ -11,10 +11,10 @@
 
 | Day | Date | Time (ET) |
 | --- | --- | --- |
-| Wednesday | October 28 | 4:00–6:00 PM |
-| Thursday | October 29 | 3:00–5:00 PM |
-| Friday | October 30 | 3:00–5:00 PM |
-| Monday | November 2 | 11:00 AM – 1:00 PM |
+| Thursday | November 5 | 3:00–5:00 PM |
+| Friday | November 6 | 3:00–5:00 PM |
+| Monday | November 9 | 10:00 AM–12:00 PM |
+| Tuesday | November 10 | 11:00 AM–1:00 PM |
 
 ## Class recordings and slides
 
