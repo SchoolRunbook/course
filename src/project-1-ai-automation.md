@@ -194,3 +194,36 @@ Let’s add a Summary tab that updates after each run. For the bills from all em
 > [Find instructions here on how to export your JSON file](#make-your-ai-copy). Follow the export steps on your **completed AI workflow**; you do not need to duplicate it again.
 >
 > Stretch tasks are optional.
+
+<!-- Keep every link on this guide in a new tab, without changing other course pages. -->
+<script>
+(function () {
+  if (!window.location.pathname.endsWith('/project-1-ai-automation.html')) return;
+
+  function setNewTab(link) {
+    link.target = '_blank';
+    link.relList.add('noopener', 'noreferrer');
+  }
+
+  function updateLinks(root) {
+    if (root.matches?.('a[href]')) setNewTab(root);
+    root.querySelectorAll?.('a[href]').forEach(setNewTab);
+  }
+
+  function initializeLinks() {
+    updateLinks(document);
+    // Include links added later, such as search results, without changing downloads.
+    new MutationObserver(function (records) {
+      records.forEach(function (record) {
+        record.addedNodes.forEach(updateLinks);
+      });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLinks, { once: true });
+  } else {
+    initializeLinks();
+  }
+})();
+</script>
