@@ -17,7 +17,7 @@ In order to make sure we're all starting at the same point, you will import and 
 
 4. Select **Finance Inbox Tracker - Rules.json** from Downloads and click **Open**.
 
-5. Rename the workflow **[your name] - Finance Inbox Tracker - Class 2**.
+5. Rename the workflow **[your name] - Class 2 - Finance Inbox Tracker**.
 
 ![Import the rules workflow: open the three-dot menu, choose Import and From file, select the JSON, then click Open.](n8n-import-json.gif)
 
@@ -31,7 +31,7 @@ Your imported workflow should look like the example below. It reads the sheet be
 
 1. Open the link above and click **Make a copy**. Sign in to Google if asked.
 
-2. Rename your copy **[your name] - Finance Inbox Tracker - Class 2**.
+2. Rename your copy **[your name] - Class 2 - Finance Inbox Tracker**.
 
 3. Keep the sheet open in its own tab. You’ll connect it to n8n and paste its link into Claude.
 
@@ -39,7 +39,7 @@ The tabs and columns are already set up. Keep the tab names as they are.
 
 ### 3. Connect your accounts
 
-1. Open **Get Test Emails** and **Mark Done** and select your Gmail credential. In **Mark Done**, select **srb-done**.
+1. In your n8n workflow, open **Get Test Emails** and **Mark Done** and select your Gmail credential. In **Mark Done**, select **srb-done**.
 
 2. Open **Get Bill Rows**, **Add Bill Rows**, **Update Bill Rows** and **Log Emails**. In each step, select your Google Sheets credential and your new **Class 2 spreadsheet**.
 
@@ -63,7 +63,7 @@ If the search finds no matches, continue to the next step.
 
 1. Click **Execute workflow** at the bottom of the n8n canvas and wait for the run to finish.
 
-2. Open your Class 2 spreadsheet and check that **Automation - Rules** and **Inbox Log** contain the results.
+2. Open your Class 2 spreadsheet and check that **Automation - Rules** and **Inbox Log** contain results.
 
 3. Keep those rows. You’ll compare them with the AI results later.
 
