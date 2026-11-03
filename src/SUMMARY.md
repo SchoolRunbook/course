@@ -5,6 +5,7 @@
 
 [Project 1: Finance Inbox Tracker](project-1.md)
 
+[Project 1: AI Automation](project-1-ai-automation.md)
 
 
 
