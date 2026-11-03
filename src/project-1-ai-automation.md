@@ -1,8 +1,9 @@
 # Project 1: Finance Inbox Tracker — AI version
 
-This continues [Project 1: Finance Inbox Tracker](project-1.md). You’ll add AI to Marcus’s tracker, one change at a time. Everyone starts from the same rules workflow and spreadsheet for Class 2. Follow the setup steps below, then build the two AI steps with Claude.
+This continues [Project 1: Finance Inbox Tracker](project-1.md) by replacing rules-based nodes with AI. Follow the steps below.
 
-## Set up your Class 2 workflow
+## Set up Class 2 workflow
+In order to make sure we're all starting at the same point, you will import and build upon an existing rules-based workflow. 
 
 ### 1. Import the workflow
 
