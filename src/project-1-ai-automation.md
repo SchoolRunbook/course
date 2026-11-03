@@ -41,7 +41,10 @@ The tabs and columns are already set up. Keep the tab names as they are.
 
 1. In your n8n workflow, open **Get Test Emails** and **Mark Done** and select your Gmail credential. In **Mark Done**, select **srb-done**.
 
-2. Open **Get Bill Rows**, **Add Bill Rows**, **Update Bill Rows** and **Log Emails**. In each node, select your Google Sheets credential and your new **Class 2 spreadsheet**.
+2. Open **Get Bill Rows**, **Add Bill Rows**, **Update Bill Rows** and **Log Emails**. In each node:
+
+   - Under **Credential to connect with**, select your **Google Sheets credential**.
+   - Under **Document**, choose **From list**, then select your new **Class 2 spreadsheet**.
 
 3. Leave the selected tabs as they are: **Automation - Rules** in the three bill nodes and **Inbox Log** in **Log Emails**.
 
