@@ -23,7 +23,7 @@ In order to make sure we're all starting at the same point, you will import and 
 
 Your imported workflow should look like the example below. It reads the sheet before sorting, then adds bills, updates existing bills, logs emails and marks them done.
 
-![Completed rules workflow showing Run Tracker, Get Test Emails, Read PDFs, Get Bill Rows, Sort Emails, Route Items and the four output steps.](rules-workflow.png)
+![Completed rules workflow showing Run Tracker, Get Test Emails, Read PDFs, Get Bill Rows, Sort Emails, Route Items and the four output nodes.](rules-workflow.png)
 
 ### 2. Copy the spreadsheet
 
@@ -41,9 +41,9 @@ The tabs and columns are already set up. Keep the tab names as they are.
 
 1. In your n8n workflow, open **Get Test Emails** and **Mark Done** and select your Gmail credential. In **Mark Done**, select **srb-done**.
 
-2. Open **Get Bill Rows**, **Add Bill Rows**, **Update Bill Rows** and **Log Emails**. In each step, select your Google Sheets credential and your new **Class 2 spreadsheet**.
+2. Open **Get Bill Rows**, **Add Bill Rows**, **Update Bill Rows** and **Log Emails**. In each node, select your Google Sheets credential and your new **Class 2 spreadsheet**.
 
-3. Leave the selected tabs as they are: **Automation - Rules** in the three bill steps and **Inbox Log** in **Log Emails**.
+3. Leave the selected tabs as they are: **Automation - Rules** in the three bill nodes and **Inbox Log** in **Log Emails**.
 
 <a id="reset-test-emails"></a>
 
@@ -72,17 +72,19 @@ If the run shows an error or no emails are processed, ask a TA for help before m
 <a id="round-1"></a>
 <a id="1-let-claude-read-the-attachments"></a>
 
-## 1. Let Claude read the attachments — Round 1
+## Round 1: Let Claude read the attachments
 
-**Why:** the **Read PDFs** step only reads PDF text. A scanned invoice, receipt photo, spreadsheet or email with several attachments needs a more flexible reader. This first change uses AI to read the files and pass their information along with the email.
+**Why:** the **Read PDFs** node only reads PDF text. A scanned invoice, receipt photo, spreadsheet or email with several attachments needs a more flexible reader. This first change uses AI to read the files and pass their information along with the email.
 
 1. Open the **same Finance Inbox Tracker chat** inside your **SchoolRunbook projects** project in Claude.
 
 2. Attach **Finance Inbox Tracker - Rules.json**, the file you downloaded at the start.
 
-3. Copy the prompt below. Replace **[paste the link to your new sheet here]** with the URL of your own Class 2 spreadsheet, not the template-copy link.
+3. Copy the prompt below. Replace **[paste the link to your new sheet here]** with the link to your copy of the spreadsheet. Copy it from your browser's address bar while your sheet is open.
 
 4. Send the prompt with the JSON attached. Follow Claude’s guidance in your **Class 2 workflow**, one step at a time, to build and test attachment reading.
+
+**Done when:** a test run fills your AI tabs, and the rows include details from scanned files and from every attachment on emails with more than one.
 
 ```text
 My Google Sheet: [paste the link to your new sheet here]
@@ -97,22 +99,24 @@ Keep my rules results unchanged and use the AI tabs in the same spreadsheet. Gui
 <a id="round-2"></a>
 <a id="2-let-claude-sort-the-emails"></a>
 
-## 2. Let Claude sort the emails — Round 2
+## Round 2: Let Claude sort the emails
 
 **Why:** the code in **Sort Emails** follows fixed rules. New wording, a different invoice layout or information spread across several files can mean rewriting those rules. AI can use the meaning of the email and attachments to decide what happens next, while following the same business rules.
 
 > [!IMPORTANT]
-> **Keep the sheet-reading step.** **Get Bill Rows** gives the AI the existing bills before it sorts the emails. That is how it can attach a reminder to a bill already on the sheet. Marcus's approvals, payment decisions and notes still belong to him.
+> **Keep the sheet-reading node.** **Get Bill Rows** gives the AI the existing bills before it sorts the emails. That is how it can attach a reminder to a bill already on the sheet. Marcus's approvals, payment decisions and notes still belong to him.
 
-Continue once your attachment-reading step is working. In the **same Claude chat**, send this prompt and follow Claude’s guidance in the **same Class 2 workflow**.
+Continue once attachment reading is working. In the **same Claude chat**, send this prompt and follow Claude’s guidance in the **same Class 2 workflow**.
 
 ```text
 Now let's use AI to understand and sort emails and invoices, even when their wording or layout is unfamiliar, and decide what to add or update using the email, all its attachments and the bills already on the sheet. I want to still keep the same business rules.
 ```
 
+**Done when:** a test run sorts every email into your AI tabs with no errors, and a reminder email updates its existing bill instead of adding a new row.
+
 ## Compare your results
 
-Once both AI steps are working, compare them with your rules version using the same practice emails.
+Once both rounds are working, compare them with your rules version using the same practice emails.
 
 1. If your AI tabs contain results from earlier tests, ask Claude to guide you through clearing only those generated test rows in **Automation - AI** and **Inbox Log - AI**. Keep the headers and your rules results.
 2. [Reset the practice emails' completion label](#reset-test-emails).
@@ -127,11 +131,11 @@ Your AI workflow should follow this order:
 
 **Get emails → AI reads attachments → Read existing bills → AI sorts emails → Route items → Update the sheet and mark emails done.**
 
-Claude may add a few supporting nodes. What matters is that both AI steps work and the rest of Marcus's process stays the same.
+Claude may add a few supporting nodes. What matters is that both AI changes work and the rest of Marcus's process stays the same.
 
 ## Stretch tasks
 
-Finish both AI steps first, then pick a task. Copy its prompt into the **same Finance Inbox Tracker chat in Claude** and follow its guidance in your **AI workflow**.
+Finish both rounds first, then pick a task. Copy its prompt into the **same Finance Inbox Tracker chat in Claude** and follow its guidance in your **AI workflow**.
 
 ### Explain what each bill is for
 
@@ -161,7 +165,7 @@ Let’s add a Summary tab that updates after each run. For the bills from all em
 
 ## Export your completed workflow
 
-1. Open your **[your name] - Finance Inbox Tracker - Class 2** workflow in n8n after completing the AI steps.
+1. Open your **[your name] - Class 2 - Finance Inbox Tracker** workflow in n8n after completing both rounds.
 
 2. Click the **three dots (⋯)** beside its name and choose **Export JSON**.
 
@@ -174,7 +178,7 @@ Let’s add a Summary tab that updates after each run. For the bills from all em
 > [!IMPORTANT]
 > **Submit your completed Project 1 before class on November 10.**
 >
-> Finish both AI steps and compare the results with your rules version. Export your **completed AI workflow** as a JSON file, including any stretch tasks you completed, then **[submit your final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSfTDUwvMkP6TDJliJZKj3Ac6L8GBYBL2sdvzcVkNe4cgXJy2Q/viewform)**. Include a specific example from your comparison in the form.
+> Finish both rounds and compare the results with your rules version. Export your **completed AI workflow** as a JSON file, including any stretch tasks you completed, then **[submit your final project using this form](https://docs.google.com/forms/d/e/1FAIpQLSfTDUwvMkP6TDJliJZKj3Ac6L8GBYBL2sdvzcVkNe4cgXJy2Q/viewform)**. Include a specific example from your comparison in the form.
 >
 > [Find instructions here on how to export your JSON file](#export-workflow-json). Follow the steps on your **completed Class 2 workflow**.
 >
