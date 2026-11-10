@@ -2,19 +2,9 @@
 
 ## Office hours
 
-> [!IMPORTANT]
-> Join any of the sessions below for help with your course projects. **All times are Eastern Time (ET).**
->
-> **We use the same Zoom link for all office hours**
+Need help with your course project? Book a time with a coach that works for you.
 
-### [Join office hours on Zoom](https://us06web.zoom.us/j/85708553456?pwd=SZobVNAalu8OwtQyQMvWB1jQk9a9z9.1)
-
-| Day | Date | Time (ET) |
-| --- | --- | --- |
-| Thursday | November 5 | 3:00–5:00 PM |
-| Friday | November 6 | 3:00–5:00 PM |
-| Monday | November 9 | 10:00 AM–12:00 PM |
-| Tuesday | November 10 | 11:00 AM–1:00 PM |
+### <a href="https://schoolrunbook.fillout.com/schoolrunbook-office-hours" target="_blank" rel="noopener noreferrer">Book office hours</a>
 
 ## Class recordings and slides
 
