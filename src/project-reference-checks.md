@@ -1,4 +1,4 @@
-# Project 2: Reference Checks and Offers
+# Project: Reference Checks and Offers
 > **Note:** this project runs across Class 3 and Class 4. In Class 3 we start the workflow together. In Class 4 we add offer letters.
 >
 > Finish everything up to offer letters before Class 4 on Tuesday, Nov 17 at 3:00pm ET.
