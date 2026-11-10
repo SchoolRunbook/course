@@ -7,5 +7,7 @@
 
 [Project 1: AI Automation](project-1-ai-automation.md)
 
+[Project 2: Observation Feedback](project-2-observations.md)
+
 
 
