@@ -1,4 +1,4 @@
-# Class 3: Observation Feedback
+# Project: Observation Feedback
  
 Principal Denise takes rough notes during classroom observations, then has to turn them into structured feedback and email it. Today you build a workflow that does this from your team's plan, using what you learned from interviewing her and a prompt you write yourself.
  
