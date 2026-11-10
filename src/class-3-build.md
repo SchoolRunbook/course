@@ -8,6 +8,7 @@ Complete the steps in order:
 2. [Set up your workflow](#2-set-up-your-workflow)
 3. [Get everything into your AI node](#3-get-everything-into-your-ai-node)
 4. [Write your prompt and check the output](#4-write-your-prompt-and-check-the-output)
+   
 ## 1. Start from your team's plan
  
 **Why:** your plan decides what each step does and whether a person, a rule or AI does it. You build from it.
@@ -16,6 +17,7 @@ Complete the steps in order:
  
 1. Open the [Class 3 Team Planning Slides](https://docs.google.com/presentation/d/1OUPu7oKl2TmyrRkbnmMj2yb_whz3amqISOFPL0yClDE/edit) and find your team's slide.
 2. Check that every step is marked Person, Rule or AI.
+   
 You can change your plan as you build. If you heard an idea from another team that you want to borrow, add it.
  
 ## 2. Set up your workflow
@@ -26,6 +28,7 @@ You can change your plan as you build. If you heard an idea from another team th
  
 1. Open the [Class 3 Samples](https://drive.google.com/drive/folders/1klHIHG5bIld5t8yj1IG0_TSqx1XSQlkH) folder. It has three raw observations and two past observation emails from Denise.
 2. In the [SchoolRunbook n8n workspace](https://schoolrunbook.app.n8n.cloud/home/workflows), create a new workflow called `Observation Feedback - [your name]`.
+   
 > [!IMPORTANT]
 > **Build it yourself.** You can ask AI how a specific node works, such as "What do the Anthropic node settings do?" Don't ask AI to design or build your workflow.
  
@@ -47,6 +50,7 @@ You can change your plan as you build. If you heard an idea from another team th
    - Add a label, like "Past email 1:", and drag **Past observation email 1** in from your **Past examples** node. Do the same for **Past observation email 2**.
    - Add another label, like "Notes:", and drag **content** in from the Google Docs node.
    - Click inside the **Prompt** box. A preview shows your instructions with the past emails and the raw observation filled in.
+     
 **Done when:** the preview under your prompt shows your instructions, both past emails and the notes from the first raw observation.
  
 ## 4. Write your prompt and check the output
@@ -59,11 +63,13 @@ You can change your plan as you build. If you heard an idea from another team th
 2. Add a Gmail node that sends the email to yourself while you test.
 3. Click **Execute workflow**. To test the other two raw observations, change the link in the Google Docs node and run it again.
 4. Check each email against its notes. Did the AI stick to the notes? What did it add or get wrong?
+   
 **Tips:**
  
 - **Email stops mid-sentence:** raise the token limit. In the AI node, open **Options** and set **Maximum Number of Tokens** to about 6,000.
 - **Output hard to read:** switch the output panel to **Table** or **Schema**, or read the email in your inbox, so you see it the way Denise would.
 - **Something wrong:** trace it back through the nodes. Is the problem the prompt, the input or the plan?
+  
 **Done when:** all three raw observations produce an email in your inbox, and you've checked each one against its notes.
  
 ## Homework
