@@ -1,4 +1,8 @@
 # Project: Observation Feedback
+
+> [!IMPORTANT]
+> We created plans together in class. For Homework, you can follow your team's plan or take another approach. 
+> Two of our TA's demo'ed their own approach to solving the problem which you can see in this video (link to be added)
  
 Principal Denise takes rough notes during classroom observations, then has to turn them into structured feedback and email it. Today you build a workflow that does this from your team's plan, using what you learned from interviewing her and a prompt you write yourself.
  
