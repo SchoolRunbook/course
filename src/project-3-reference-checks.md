@@ -22,9 +22,9 @@ Complete the steps in order:
 
 **Why:** everyone starts from the same working workflow, so your time goes to breaking and fixing it.
 
-**What you have:** your TA posts a link to your team's copy of **Rosa - Hiring Tracker** in your breakout room chat. It has five tabs:
+**What you have:** your TA posts your team's links in your breakout room chat, starting with your team's copy of **Rosa - Hiring Tracker**. Anyone with the links can edit. The tracker has five tabs:
 
-- **Start here:** links to your team's two forms.
+- **Start here:** links to your team's two forms (B3 and B4) and to the tracker itself (B5).
 - **Candidates:** Rosa's tracker. Rosa keeps the **Status** column up to date by hand.
 - **Reference Requests:** every response to the Candidate References form lands here.
 - **Reference Responses:** every response to the Reference Check form lands here.
@@ -54,15 +54,11 @@ Complete the steps in order:
 
 **Steps:**
 
-1. Open **New candidate references** and connect your Google account. Under **Document**, paste your tracker's link. Under **Sheet**, choose the **Reference Requests** tab.
+1. Open **New candidate references** and connect your Google account. Under **Document**, paste your tracker's link (Start here, B5). Under **Sheet**, choose the **Reference Requests** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Requests tab.
-3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link from the **Start here** tab.
-4. Open **Mark request processed**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Requests. Check these fields are filled in, and fill in any that are blank:
-   - **Mapping Column Mode:** **Map Each Column Manually**.
-   - **Column to match on:** `Timestamp`.
-   - **Timestamp (using to match):** drag in **timestamp** from **Split references**, or paste `{{ $('Split references').item.json.timestamp }}`.
-   - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
-5. **Normal 1:** open the Candidate References form from **Start here** and submit it as Jordan Ellis, using Jordan's email from the Candidates tab. For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
+3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link (Start here, B4).
+4. Open **Mark request processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. If a warning icon shows beside **Values to Update**, click it, then click the refresh icon.
+5. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
 6. Click **Execute workflow** and choose **New candidate references**.
 
 **Done when:** three reference emails for Jordan arrive in the builder's inbox, and Jordan's row in Reference Requests is marked Processed.
@@ -73,18 +69,12 @@ Complete the steps in order:
 
 **Steps:**
 
-1. Open **New reference response** and connect your Google account. Under **Document**, paste your tracker's link. Under **Sheet**, choose the **Reference Responses** tab.
+1. Open **New reference response** and connect your Google account. Under **Document**, paste your tracker's link (Start here, B5). Under **Sheet**, choose the **Reference Responses** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Responses tab.
-3. Open **Mark response processed**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Responses. As in Branch 1, check these fields are filled in:
-   - **Mapping Column Mode:** **Map Each Column Manually**.
-   - **Column to match on:** `Timestamp`.
-   - **Timestamp (using to match):** drag in **Timestamp** from **Only new responses**, or paste `{{ $json.Timestamp }}`.
-   - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
-4. Open **Get responses for candidate**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Responses. Check **Filters** has this filter, and add it if it's missing:
-   - **Column:** `Candidate name`.
-   - **Value:** paste `{{ $('Only new responses').item.json['Candidate name'] }}`.
+3. Open **Mark response processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. As in Branch 1, refresh **Values to Update** if it shows a warning.
+4. Open **Get responses for candidate**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up.
 5. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
-6. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
+6. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form (Start here, B4) and submit it as her third reference: `Nina Brooks`, `nina.brooks@example.com`, with `Priya Raman` as the candidate name.
 7. Click **Execute workflow** and choose **New reference response**.
 
 **Done when:** Rosa's email for Priya arrives, and both normal cases on the Tests tab do what the **What should happen** column says.
@@ -136,7 +126,7 @@ When a Google Sheets lookup finds nothing, the node outputs no items and the wor
 
 Branch 2 matches responses on a name the reference typed. Don't make them type it: send each reference a link with the candidate's name already filled in.
 
-1. Open the Reference Check form editor (link on **Start here**), click the **three dots (⋮)** and choose **Get pre-filled link**.
+1. Open the Reference Check form editor, using the editor link your TA posted with your tracker. Click the **three dots (⋮)** and choose **Get pre-filled link**.
 2. Type `CANDIDATE` as the candidate name, click **Get link**, then **Copy link**.
 3. Paste the link into **Email each reference** and replace `CANDIDATE` with `{{ encodeURIComponent($json.candidateName) }}`.
 
@@ -163,7 +153,7 @@ Rosa marks withdrawn candidates on the Candidates tab, but Branch 1 never looks 
 **Steps:**
 
 1. Rerun every test on the Tests tab, including the normal cases.
-2. To rerun a test, first delete the rows it added, or clear their Processed cells.
+2. To rerun a test, first delete the rows it added, or clear their Processed cells (column J in Reference Requests, column H in Reference Responses).
 3. Be ready to show one break before and after your fix when we come back to the main room.
 
 **Done when:** every test you fixed does what the **What should happen** column says, and the normal cases still work.
