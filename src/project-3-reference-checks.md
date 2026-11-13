@@ -1,8 +1,8 @@
 # Project 3: Reference Checks
 
-Rosa is the HR Coordinator at InspireAwesomeness Academy, a charter network with three schools: Northview High, Eastlake Middle and Westside Elementary. When a principal wants to move ahead with a candidate, Rosa asks the candidate for three references, emails each reference a link to the school's reference form, and tells the principal once all three have answered.
+Rosa is the HR Coordinator at InspireAwesomeness Academy, a charter network with three schools. When a principal wants to move ahead with a candidate, Rosa asks the candidate for three references, emails each reference a link to the school's reference form, and tells the principal once all three have answered.
 
-Someone has already automated this for Rosa. The workflow works when everyone behaves as expected. Real people don't: they resubmit forms, mistype names and change their plans. Today your team finds out how the workflow breaks, then makes it robust.
+Rosa has built a basic automation for this workflow. It works when everyone behaves as expected. However, there are some cases she missed: people resubmit forms, mistype names, etc. Your task is to help Rosa make her automation more robust and reliable. 
 
 Complete the steps in order:
 
@@ -16,13 +16,13 @@ Complete the steps in order:
 > [!IMPORTANT]
 > **Your team builds one workflow together.** One person builds and shares their screen. Everyone else helps decide what to do.
 >
-> **Decide your fixes yourselves.** You can ask Claude for help with mechanics, like an n8n expression or how a node's settings work. Don't ask Claude how to fix a break.
+> **Design your fixes yourselves.** First, try designing the fix yourself. Discuss amongst yourself what logic you would change to fix it. Then, if you need you can check the hint and ask Claude for help. 
 
 ## 1. Get started
 
-**Why:** everyone starts from the same working workflow, so your time goes to breaking and fixing it.
+**Why:** everyone starts from the same working workflow
 
-**What you have:** your TA posts your team's links in your breakout room chat, starting with your team's copy of **Rosa - Hiring Tracker**. Anyone with the links can edit. The tracker has five tabs:
+**What you have:** you've been provided with your team's tracker link called **Rosa - Hiring Tracker - Team #**. The tracker has five tabs:
 
 - **Start here:** links to your team's two forms (B3 and B4) and to the tracker itself (B5).
 - **Candidates:** Rosa's tracker. Rosa keeps the **Status** column up to date by hand.
@@ -32,8 +32,8 @@ Complete the steps in order:
 
 **The starter workflow has two branches:**
 
-- **Branch 1, a candidate sends their references:** **New candidate references** reads the Reference Requests tab, and **Only new requests** keeps the rows not yet marked Processed. **Split references** turns each one into three items, **Email each reference** sends each reference the form link, and **Mark request processed** fills in the row's Processed column.
-- **Branch 2, a reference responds:** **New reference response** reads the Reference Responses tab, and **Only new responses** keeps the rows not yet marked Processed. **Mark response processed** fills in Processed, then the branch finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
+- **Branch 1, a candidate sends their references:** this reads the Reference Requests tabs, then sends three emails to each reference. It also marks requests that are processed so that they don't get resent. 
+- **Branch 2, a reference responds:** reads the Reference Responses tab, finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
 
 **The Processed column:** both response tabs have one, and the sample rows are already marked. It's how the workflow knows which form submissions it has already handled.
 
@@ -46,20 +46,20 @@ Complete the steps in order:
 
 **Plus addresses:** anything sent to `yourname+anything@gmail.com` lands in your own inbox. The builder plays Rosa and all the references this way, and no real person gets emailed.
 
-**Leave the workflow off.** Test only by clicking **Execute workflow**. If the workflow is turned on, deleting rows between tests can stop the triggers from noticing new form responses.
 
 ## 2. Set up and run Branch 1
 
-**Why:** get one branch working end to end before you touch the other.
+**Why:** get one branch working end to end 
 
 **Steps:**
 
 1. Open **New candidate references** and connect your Google account. Under **Document**, paste your tracker's link (Start here, B5). Under **Sheet**, choose the **Reference Requests** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Requests tab.
-3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link (Start here, B4).
+3. Open **Email each reference** and connect your Google account. In the Message box, replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link (Start here, B4).
 4. Open **Mark request processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. If a warning icon shows beside **Values to Update**, click it, then click the refresh icon.
-5. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
-6. Click **Execute workflow** and choose **New candidate references**.
+_Once you complete the steps above, you are ready to run the first test. In your "Tests" tab, you will run the first test which is a "normal" workflow._ 
+6. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
+7. Click **Execute workflow** and choose **New candidate references**.
 
 **Done when:** three reference emails for Jordan arrive in the builder's inbox, and Jordan's row in Reference Requests is marked Processed.
 
