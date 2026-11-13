@@ -83,12 +83,12 @@ _Once you complete the steps above, you are ready to run the first test. In your
 
 **Why:** a workflow that works on the normal case can still do the wrong thing, sometimes without any error.
 
-Each break is something real people do. Full test steps are on the **Tests** tab.
+Full test steps are on the **Tests** tab.
 
 | Break | What happens in real life |
 | --- | --- |
 | 1. A reference submits twice | They aren't sure their first answer went through, so they fill in the form again. |
-| 2. A reference types the name differently | They type "Jordon Ellis" instead of "Jordan Ellis." |
+| 2. A reference types the candidate name differently | For example, they type "Jordin Ellis" instead of "Jordan Ellis." |
 | 3. A candidate resubmits the form | They think their first submission didn't go through. |
 | 4. A candidate corrects one email (harder) | One reference's email bounced, so Rosa asks them to fix it and resubmit. |
 | 5. Two candidates share a reference | A former principal is a reference for two teachers who both applied. |
@@ -96,7 +96,7 @@ Each break is something real people do. Full test steps are on the **Tests** tab
 
 **Steps:**
 
-1. Your TA assigns your team's first break. Pick a second one your team finds interesting.
+1. Fix the break that your team has been assigned. If you finish, pick a second break to fix. 
 2. Before you run each test, predict what will happen. Who gets an email? What does Rosa see?
 3. Run the test and write what actually happened in the **Starter result** column. Was it obvious something went wrong, or silent?
 
