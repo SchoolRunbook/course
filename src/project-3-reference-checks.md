@@ -57,7 +57,11 @@ Complete the steps in order:
 1. Open **New candidate references**, connect your Google account, and choose your team's tracker and the **Reference Requests** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Requests tab.
 3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link from the **Start here** tab.
-4. Open **Mark request processed**, connect your Google account, and choose your tracker and the **Reference Requests** tab.
+4. Open **Mark request processed**, connect your Google account, and choose your tracker and the **Reference Requests** tab. Choosing the tab resets the node's fields, so set them again:
+   - **Mapping Column Mode:** **Map Each Column Manually**.
+   - **Column to match on:** `Timestamp`.
+   - **Timestamp (using to match):** drag in **timestamp** from **Split references**, or paste `{{ $('Split references').item.json.timestamp }}`.
+   - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
 5. **Normal 1:** open the Candidate References form from **Start here** and submit it as Jordan Ellis, using Jordan's email from the Candidates tab. For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
 6. Click **Execute workflow** and choose **New candidate references**.
 
@@ -71,10 +75,15 @@ Complete the steps in order:
 
 1. Open **New reference response**, connect your Google account, and choose your team's tracker and the **Reference Responses** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Responses tab.
-3. Open **Mark response processed** and **Get responses for candidate**. In each, connect your Google account and choose your tracker and the **Reference Responses** tab.
-4. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
-5. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
-6. Click **Execute workflow** and choose **New reference response**.
+3. Open **Mark response processed**, connect your Google account, and choose your tracker and the **Reference Responses** tab. As in Branch 1, set the fields again:
+   - **Mapping Column Mode:** **Map Each Column Manually**.
+   - **Column to match on:** `Timestamp`.
+   - **Timestamp (using to match):** drag in **Timestamp** from **Only new responses**, or paste `{{ $json.Timestamp }}`.
+   - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
+4. Open **Get responses for candidate**, connect your Google account, and choose your tracker and the **Reference Responses** tab.
+5. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
+6. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
+7. Click **Execute workflow** and choose **New reference response**.
 
 **Done when:** Rosa's email for Priya arrives, and both normal cases on the Tests tab do what the **What should happen** column says.
 

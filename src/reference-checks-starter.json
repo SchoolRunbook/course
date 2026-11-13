@@ -12,7 +12,10 @@
       "name": "Branch 1 note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-60, -140]
+      "position": [
+        -60,
+        -140
+      ]
     },
     {
       "parameters": {
@@ -25,7 +28,10 @@
       "name": "Branch 2 note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-60, 220]
+      "position": [
+        -60,
+        220
+      ]
     },
     {
       "parameters": {
@@ -53,7 +59,10 @@
       "name": "New candidate references",
       "type": "n8n-nodes-base.googleSheetsTrigger",
       "typeVersion": 1,
-      "position": [0, 0]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
@@ -83,17 +92,23 @@
       "name": "Only new requests",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
-      "position": [240, 0]
+      "position": [
+        240,
+        0
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// One form response has three references. Turn it into three items, one per reference.\nconst out = [];\nfor (const item of $input.all()) {\n  const row = item.json;\n  for (const n of [1, 2, 3]) {\n    out.push({\n      json: {\n        rowNumber: row.row_number,\n        candidateName: row['Your name'],\n        candidateEmail: row['Your email'],\n        referenceNumber: n,\n        referenceName: row[`Reference ${n} name`],\n        referenceEmail: row[`Reference ${n} email`],\n      },\n    });\n  }\n}\nreturn out;"
+        "jsCode": "// One form response has three references. Turn it into three items, one per reference.\nconst out = [];\nfor (const item of $input.all()) {\n  const row = item.json;\n  for (const n of [1, 2, 3]) {\n    out.push({\n      json: {\n        timestamp: row['Timestamp'],\n        candidateName: row['Your name'],\n        candidateEmail: row['Your email'],\n        referenceNumber: n,\n        referenceName: row[`Reference ${n} name`],\n        referenceEmail: row[`Reference ${n} email`],\n      },\n    });\n  }\n}\nreturn out;"
       },
       "id": "a1b2c3d4-0004-4000-8000-000000000004",
       "name": "Split references",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 0]
+      "position": [
+        480,
+        0
+      ]
     },
     {
       "parameters": {
@@ -109,7 +124,10 @@
       "name": "Email each reference",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [720, 0]
+      "position": [
+        720,
+        0
+      ]
     },
     {
       "parameters": {
@@ -127,20 +145,21 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "row_number": "={{ $('Split references').item.json.rowNumber }}",
+            "Timestamp": "={{ $('Split references').item.json.timestamp }}",
             "Processed": "={{ $now.toFormat('yyyy-MM-dd HH:mm') }}"
           },
-          "matchingColumns": ["row_number"],
+          "matchingColumns": [
+            "Timestamp"
+          ],
           "schema": [
             {
-              "id": "row_number",
-              "displayName": "row_number",
+              "id": "Timestamp",
+              "displayName": "Timestamp",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "readOnly": true,
               "removed": false
             },
             {
@@ -161,7 +180,10 @@
       "name": "Mark request processed",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [960, 0]
+      "position": [
+        960,
+        0
+      ]
     },
     {
       "parameters": {
@@ -189,7 +211,10 @@
       "name": "New reference response",
       "type": "n8n-nodes-base.googleSheetsTrigger",
       "typeVersion": 1,
-      "position": [0, 360]
+      "position": [
+        0,
+        360
+      ]
     },
     {
       "parameters": {
@@ -219,7 +244,10 @@
       "name": "Only new responses",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
-      "position": [240, 360]
+      "position": [
+        240,
+        360
+      ]
     },
     {
       "parameters": {
@@ -237,20 +265,21 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "row_number": "={{ $json.row_number }}",
+            "Timestamp": "={{ $json.Timestamp }}",
             "Processed": "={{ $now.toFormat('yyyy-MM-dd HH:mm') }}"
           },
-          "matchingColumns": ["row_number"],
+          "matchingColumns": [
+            "Timestamp"
+          ],
           "schema": [
             {
-              "id": "row_number",
-              "displayName": "row_number",
+              "id": "Timestamp",
+              "displayName": "Timestamp",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "readOnly": true,
               "removed": false
             },
             {
@@ -271,7 +300,10 @@
       "name": "Mark response processed",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [480, 360]
+      "position": [
+        480,
+        360
+      ]
     },
     {
       "parameters": {
@@ -302,7 +334,10 @@
       "name": "Get responses for candidate",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [720, 360]
+      "position": [
+        720,
+        360
+      ]
     },
     {
       "parameters": {
@@ -321,7 +356,10 @@
       "name": "Count responses",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
-      "position": [960, 360]
+      "position": [
+        960,
+        360
+      ]
     },
     {
       "parameters": {
@@ -350,7 +388,10 @@
       "name": "All three in?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1200, 360]
+      "position": [
+        1200,
+        360
+      ]
     },
     {
       "parameters": {
@@ -366,39 +407,123 @@
       "name": "Email Rosa",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [1440, 340]
+      "position": [
+        1440,
+        340
+      ]
     }
   ],
   "connections": {
     "New candidate references": {
-      "main": [[{ "node": "Only new requests", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Only new requests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Only new requests": {
-      "main": [[{ "node": "Split references", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Split references",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Split references": {
-      "main": [[{ "node": "Email each reference", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Email each reference",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Email each reference": {
-      "main": [[{ "node": "Mark request processed", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Mark request processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "New reference response": {
-      "main": [[{ "node": "Only new responses", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Only new responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Only new responses": {
-      "main": [[{ "node": "Mark response processed", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Mark response processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Mark response processed": {
-      "main": [[{ "node": "Get responses for candidate", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Get responses for candidate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Get responses for candidate": {
-      "main": [[{ "node": "Count responses", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Count responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Count responses": {
-      "main": [[{ "node": "All three in?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "All three in?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "All three in?": {
-      "main": [[{ "node": "Email Rosa", "type": "main", "index": 0 }], []]
+      "main": [
+        [
+          {
+            "node": "Email Rosa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
     }
   },
   "pinData": {},
