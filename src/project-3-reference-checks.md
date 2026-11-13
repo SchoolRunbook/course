@@ -74,7 +74,7 @@ Complete the steps in order:
 3. Open **Mark response processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. As in Branch 1, refresh **Values to Update** if it shows a warning.
 4. Open **Get responses for candidate**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up.
 5. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
-6. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form (Start here, B4) and submit it as her third reference: `Nina Brooks`, `nina.brooks@example.com`, with `Priya Raman` as the candidate name.
+6. **Normal 2:** Priya Raman already has 2 of 3 responses. Submit the Reference Check form (Start here, B4) with `Priya Raman` as the candidate name. Any reference name and email will do.
 7. Click **Execute workflow** and choose **New reference response**.
 
 **Done when:** Rosa's email for Priya arrives, and both normal cases on the Tests tab do what the **What should happen** column says.

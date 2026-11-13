@@ -321,7 +321,7 @@
         "filtersUI": {
           "values": [
             {
-              "lookupColumn": "Candidate name",
+              "lookupColumn": "=Candidate name",
               "lookupValue": "={{ $('Only new responses').item.json['Candidate name'] }}"
             }
           ]
