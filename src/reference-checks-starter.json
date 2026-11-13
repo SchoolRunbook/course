@@ -45,7 +45,7 @@
         "documentId": {
           "__rl": true,
           "value": "",
-          "mode": "list"
+          "mode": "url"
         },
         "sheetName": {
           "__rl": true,
@@ -135,12 +135,12 @@
         "documentId": {
           "__rl": true,
           "value": "",
-          "mode": "list"
+          "mode": "url"
         },
         "sheetName": {
           "__rl": true,
-          "value": "",
-          "mode": "list"
+          "value": "Reference Requests",
+          "mode": "name"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -197,7 +197,7 @@
         "documentId": {
           "__rl": true,
           "value": "",
-          "mode": "list"
+          "mode": "url"
         },
         "sheetName": {
           "__rl": true,
@@ -255,12 +255,12 @@
         "documentId": {
           "__rl": true,
           "value": "",
-          "mode": "list"
+          "mode": "url"
         },
         "sheetName": {
           "__rl": true,
-          "value": "",
-          "mode": "list"
+          "value": "Reference Responses",
+          "mode": "name"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -311,12 +311,12 @@
         "documentId": {
           "__rl": true,
           "value": "",
-          "mode": "list"
+          "mode": "url"
         },
         "sheetName": {
           "__rl": true,
-          "value": "",
-          "mode": "list"
+          "value": "Reference Responses",
+          "mode": "name"
         },
         "filtersUI": {
           "values": [

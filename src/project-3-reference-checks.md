@@ -54,10 +54,10 @@ Complete the steps in order:
 
 **Steps:**
 
-1. Open **New candidate references**, connect your Google account, and choose your team's tracker and the **Reference Requests** tab.
+1. Open **New candidate references** and connect your Google account. Under **Document**, paste your tracker's link. Under **Sheet**, choose the **Reference Requests** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Requests tab.
 3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link from the **Start here** tab.
-4. Open **Mark request processed**, connect your Google account, and choose your tracker and the **Reference Requests** tab. Choosing the tab resets the node's fields, so set them again:
+4. Open **Mark request processed**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Requests. Check these fields are filled in, and fill in any that are blank:
    - **Mapping Column Mode:** **Map Each Column Manually**.
    - **Column to match on:** `Timestamp`.
    - **Timestamp (using to match):** drag in **timestamp** from **Split references**, or paste `{{ $('Split references').item.json.timestamp }}`.
@@ -73,14 +73,14 @@ Complete the steps in order:
 
 **Steps:**
 
-1. Open **New reference response**, connect your Google account, and choose your team's tracker and the **Reference Responses** tab.
+1. Open **New reference response** and connect your Google account. Under **Document**, paste your tracker's link. Under **Sheet**, choose the **Reference Responses** tab.
 2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Responses tab.
-3. Open **Mark response processed**, connect your Google account, and choose your tracker and the **Reference Responses** tab. As in Branch 1, set the fields again:
+3. Open **Mark response processed**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Responses. As in Branch 1, check these fields are filled in:
    - **Mapping Column Mode:** **Map Each Column Manually**.
    - **Column to match on:** `Timestamp`.
    - **Timestamp (using to match):** drag in **Timestamp** from **Only new responses**, or paste `{{ $json.Timestamp }}`.
    - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
-4. Open **Get responses for candidate**, connect your Google account, and choose your tracker and the **Reference Responses** tab. Choosing the tab clears its filter, so add it again under **Filters**:
+4. Open **Get responses for candidate**, connect your Google account, and paste your tracker's link under **Document**. **Sheet** is already set to Reference Responses. Check **Filters** has this filter, and add it if it's missing:
    - **Column:** `Candidate name`.
    - **Value:** paste `{{ $('Only new responses').item.json['Candidate name'] }}`.
 5. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
