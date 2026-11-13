@@ -49,6 +49,8 @@ Complete the steps in order:
 - **Branch 1, a candidate sends their references:** a new row in Reference Requests starts it. **Split references** turns the one response into three items, and **Email each reference** sends each one the form link.
 - **Branch 2, a reference responds:** a new row in Reference Responses starts it. It finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
 
+**Leave the workflow off.** Test only by clicking **Execute workflow**. If the workflow is turned on, deleting rows between tests can stop the triggers from noticing new form responses.
+
 **Done when:** no node shows a warning.
 
 ## 2. Run the normal cases
