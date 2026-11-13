@@ -3,22 +3,22 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Branch 1: a candidate sends their references\nWhen a new row lands in Reference Requests, email each of the three references a link to the Reference Check form.",
-        "height": 260,
-        "width": 760,
+        "content": "## Branch 1: a candidate sends their references\nFor each new row in Reference Requests that isn't marked Processed, email the three references a link to the Reference Check form, then mark the row Processed.",
+        "height": 280,
+        "width": 1300,
         "color": 4
       },
       "id": "a1b2c3d4-0001-4000-8000-000000000001",
       "name": "Branch 1 note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-60, -120]
+      "position": [-60, -140]
     },
     {
       "parameters": {
-        "content": "## Branch 2: a reference responds\nWhen a new row lands in Reference Responses, count that candidate's responses. At 3, email Rosa.",
-        "height": 260,
-        "width": 1200,
+        "content": "## Branch 2: a reference responds\nFor each new row in Reference Responses that isn't marked Processed, mark it Processed, count that candidate's responses, and email Rosa at 3.",
+        "height": 280,
+        "width": 1780,
         "color": 5
       },
       "id": "a1b2c3d4-0002-4000-8000-000000000002",
@@ -57,13 +57,43 @@
     },
     {
       "parameters": {
-        "jsCode": "// One form response has three references. Turn it into three items, one per reference.\nconst out = [];\nfor (const item of $input.all()) {\n  const row = item.json;\n  for (const n of [1, 2, 3]) {\n    out.push({\n      json: {\n        candidateName: row['Your name'],\n        candidateEmail: row['Your email'],\n        referenceNumber: n,\n        referenceName: row[`Reference ${n} name`],\n        referenceEmail: row[`Reference ${n} email`],\n      },\n    });\n  }\n}\nreturn out;"
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "a1b2c3d4-0011-4000-8000-0000000000aa",
+              "leftValue": "={{ $json.Processed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0011-4000-8000-000000000011",
+      "name": "Only new requests",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// One form response has three references. Turn it into three items, one per reference.\nconst out = [];\nfor (const item of $input.all()) {\n  const row = item.json;\n  for (const n of [1, 2, 3]) {\n    out.push({\n      json: {\n        rowNumber: row.row_number,\n        candidateName: row['Your name'],\n        candidateEmail: row['Your email'],\n        referenceNumber: n,\n        referenceName: row[`Reference ${n} name`],\n        referenceEmail: row[`Reference ${n} email`],\n      },\n    });\n  }\n}\nreturn out;"
       },
       "id": "a1b2c3d4-0004-4000-8000-000000000004",
       "name": "Split references",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [240, 0]
+      "position": [480, 0]
     },
     {
       "parameters": {
@@ -79,7 +109,59 @@
       "name": "Email each reference",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [480, 0]
+      "position": [720, 0]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('Split references').item.json.rowNumber }}",
+            "Processed": "={{ $now.toFormat('yyyy-MM-dd HH:mm') }}"
+          },
+          "matchingColumns": ["row_number"],
+          "schema": [
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Processed",
+              "displayName": "Processed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0012-4000-8000-000000000012",
+      "name": "Mark request processed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [960, 0]
     },
     {
       "parameters": {
@@ -107,7 +189,89 @@
       "name": "New reference response",
       "type": "n8n-nodes-base.googleSheetsTrigger",
       "typeVersion": 1,
-      "position": [0, 340]
+      "position": [0, 360]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "a1b2c3d4-0013-4000-8000-0000000000aa",
+              "leftValue": "={{ $json.Processed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0013-4000-8000-000000000013",
+      "name": "Only new responses",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [240, 360]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Processed": "={{ $now.toFormat('yyyy-MM-dd HH:mm') }}"
+          },
+          "matchingColumns": ["row_number"],
+          "schema": [
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Processed",
+              "displayName": "Processed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0014-4000-8000-000000000014",
+      "name": "Mark response processed",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [480, 360]
     },
     {
       "parameters": {
@@ -126,7 +290,7 @@
           "values": [
             {
               "lookupColumn": "Candidate name",
-              "lookupValue": "={{ $json['Candidate name'] }}"
+              "lookupValue": "={{ $('Only new responses').item.json['Candidate name'] }}"
             }
           ]
         },
@@ -138,25 +302,26 @@
       "name": "Get responses for candidate",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [240, 340]
+      "position": [720, 360]
     },
     {
       "parameters": {
         "fieldsToSummarize": {
           "values": [
             {
-              "aggregation": "count",
-              "field": "Timestamp"
+              "aggregation": "countUnique",
+              "field": "row_number"
             }
           ]
         },
+        "fieldsToSplitBy": "Candidate name",
         "options": {}
       },
       "id": "a1b2c3d4-0008-4000-8000-000000000008",
       "name": "Count responses",
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1,
-      "position": [480, 340]
+      "position": [960, 360]
     },
     {
       "parameters": {
@@ -164,12 +329,12 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict"
+            "typeValidation": "loose"
           },
           "conditions": [
             {
               "id": "a1b2c3d4-0009-4000-8000-0000000000aa",
-              "leftValue": "={{ $json.count_Timestamp }}",
+              "leftValue": "={{ $json.unique_count_row_number }}",
               "rightValue": 3,
               "operator": {
                 "type": "number",
@@ -185,14 +350,14 @@
       "name": "All three in?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [720, 340]
+      "position": [1200, 360]
     },
     {
       "parameters": {
         "sendTo": "PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE",
-        "subject": "=All references are in for {{ $('New reference response').first().json['Candidate name'] }}",
+        "subject": "=All references are in for {{ $json['Candidate name'] }}",
         "emailType": "text",
-        "message": "=All three references are in for {{ $('New reference response').first().json['Candidate name'] }}. They're on the Reference Responses tab, ready to share with the principal.",
+        "message": "=All three references are in for {{ $json['Candidate name'] }}. They're on the Reference Responses tab, ready to share with the principal.",
         "options": {
           "appendAttribution": false
         }
@@ -201,76 +366,39 @@
       "name": "Email Rosa",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [960, 320]
+      "position": [1440, 340]
     }
   ],
   "connections": {
     "New candidate references": {
-      "main": [
-        [
-          {
-            "node": "Split references",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Only new requests", "type": "main", "index": 0 }]]
+    },
+    "Only new requests": {
+      "main": [[{ "node": "Split references", "type": "main", "index": 0 }]]
     },
     "Split references": {
-      "main": [
-        [
-          {
-            "node": "Email each reference",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Email each reference", "type": "main", "index": 0 }]]
+    },
+    "Email each reference": {
+      "main": [[{ "node": "Mark request processed", "type": "main", "index": 0 }]]
     },
     "New reference response": {
-      "main": [
-        [
-          {
-            "node": "Get responses for candidate",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Only new responses", "type": "main", "index": 0 }]]
+    },
+    "Only new responses": {
+      "main": [[{ "node": "Mark response processed", "type": "main", "index": 0 }]]
+    },
+    "Mark response processed": {
+      "main": [[{ "node": "Get responses for candidate", "type": "main", "index": 0 }]]
     },
     "Get responses for candidate": {
-      "main": [
-        [
-          {
-            "node": "Count responses",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Count responses", "type": "main", "index": 0 }]]
     },
     "Count responses": {
-      "main": [
-        [
-          {
-            "node": "All three in?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "All three in?", "type": "main", "index": 0 }]]
     },
     "All three in?": {
-      "main": [
-        [
-          {
-            "node": "Email Rosa",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
+      "main": [[{ "node": "Email Rosa", "type": "main", "index": 0 }], []]
     }
   },
   "pinData": {},

@@ -6,18 +6,19 @@ Someone has already automated this for Rosa. The workflow works when everyone be
 
 Complete the steps in order:
 
-1. [Set up your team's workflow](#1-set-up-your-teams-workflow)
-2. [Run the normal cases](#2-run-the-normal-cases)
-3. [Break it](#3-break-it)
-4. [Fix it](#4-fix-it)
-5. [Rerun every test](#5-rerun-every-test)
+1. [Get started](#1-get-started)
+2. [Set up and run Branch 1](#2-set-up-and-run-branch-1)
+3. [Set up and run Branch 2](#3-set-up-and-run-branch-2)
+4. [Break it](#4-break-it)
+5. [Fix it](#5-fix-it)
+6. [Rerun every test](#6-rerun-every-test)
 
 > [!IMPORTANT]
 > **Your team builds one workflow together.** One person builds and shares their screen. Everyone else helps decide what to do.
 >
 > **Decide your fixes yourselves.** You can ask Claude for help with mechanics, like an n8n expression or how a node's settings work. Don't ask Claude how to fix a break.
 
-## 1. Set up your team's workflow
+## 1. Get started
 
 **Why:** everyone starts from the same working workflow, so your time goes to breaking and fixing it.
 
@@ -29,44 +30,55 @@ Complete the steps in order:
 - **Reference Responses:** every response to the Reference Check form lands here.
 - **Tests:** the tests you'll run today, with what should happen.
 
+**The starter workflow has two branches:**
+
+- **Branch 1, a candidate sends their references:** **New candidate references** reads the Reference Requests tab, and **Only new requests** keeps the rows not yet marked Processed. **Split references** turns each one into three items, **Email each reference** sends each reference the form link, and **Mark request processed** fills in the row's Processed column.
+- **Branch 2, a reference responds:** **New reference response** reads the Reference Responses tab, and **Only new responses** keeps the rows not yet marked Processed. **Mark response processed** fills in Processed, then the branch finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
+
+**The Processed column:** both response tabs have one, and the sample rows are already marked. It's how the workflow knows which form submissions it has already handled.
+
 **Steps:**
 
 <p><a href="reference-checks-starter.json" download="Reference Checks - Starter.json" style="display:inline-block; padding:0.7em 1em; border:1px solid var(--links); border-radius:6px; background:var(--links); color:var(--bg); font-weight:600; text-decoration:none;">Download the starter workflow (.json)</a></p>
 
 1. The builder downloads the starter workflow above.
 2. In the <a href="https://schoolrunbook.app.n8n.cloud/home/workflows" target="_blank" rel="noopener noreferrer">SchoolRunbook n8n workspace</a>, create a new workflow, click the **three dots (⋯)** beside its name and choose **Import → From file**. Rename it `Reference Checks - Team [number]`.
-3. Open each Google Sheets node, connect your Google account, and choose your team's tracker and tab:
-   - **New candidate references:** the **Reference Requests** tab.
-   - **New reference response** and **Get responses for candidate:** the **Reference Responses** tab.
-4. Open both Gmail nodes and connect your Google account.
-5. In **Email each reference**, replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link from the **Start here** tab.
-6. In **Email Rosa**, replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
 
 **Plus addresses:** anything sent to `yourname+anything@gmail.com` lands in your own inbox. The builder plays Rosa and all the references this way, and no real person gets emailed.
 
-**The starter workflow has two branches:**
-
-- **Branch 1, a candidate sends their references:** a new row in Reference Requests starts it. **Split references** turns the one response into three items, and **Email each reference** sends each one the form link.
-- **Branch 2, a reference responds:** a new row in Reference Responses starts it. It finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
-
 **Leave the workflow off.** Test only by clicking **Execute workflow**. If the workflow is turned on, deleting rows between tests can stop the triggers from noticing new form responses.
 
-**Done when:** no node shows a warning.
+## 2. Set up and run Branch 1
 
-## 2. Run the normal cases
-
-**Why:** you need to see the workflow working before you can tell when it's broken.
+**Why:** get one branch working end to end before you touch the other.
 
 **Steps:**
 
-1. **Normal 1:** open the Candidate References form from **Start here** and submit it as Jordan Ellis, using Jordan's email from the Candidates tab. For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
-2. In n8n, click **Execute workflow** and choose **New candidate references**. Three reference emails arrive in the builder's inbox.
-3. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
-4. Click **Execute workflow** and choose **New reference response**. Rosa's email arrives.
+1. Open **New candidate references**, connect your Google account, and choose your team's tracker and the **Reference Requests** tab.
+2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Requests tab.
+3. Open **Email each reference** and connect your Google account. Replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link from the **Start here** tab.
+4. Open **Mark request processed**, connect your Google account, and choose your tracker and the **Reference Requests** tab.
+5. **Normal 1:** open the Candidate References form from **Start here** and submit it as Jordan Ellis, using Jordan's email from the Candidates tab. For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
+6. Click **Execute workflow** and choose **New candidate references**.
 
-**Done when:** both normal cases on the Tests tab do what the **What should happen** column says.
+**Done when:** three reference emails for Jordan arrive in the builder's inbox, and Jordan's row in Reference Requests is marked Processed.
 
-## 3. Break it
+## 3. Set up and run Branch 2
+
+**Why:** Branch 2 is the half Rosa relies on to know when a candidate is ready for the principal.
+
+**Steps:**
+
+1. Open **New reference response**, connect your Google account, and choose your team's tracker and the **Reference Responses** tab.
+2. Click **Fetch Test Event**. The node shows a green check, and the output shows the rows from your Reference Responses tab.
+3. Open **Mark response processed** and **Get responses for candidate**. In each, connect your Google account and choose your tracker and the **Reference Responses** tab.
+4. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
+5. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
+6. Click **Execute workflow** and choose **New reference response**.
+
+**Done when:** Rosa's email for Priya arrives, and both normal cases on the Tests tab do what the **What should happen** column says.
+
+## 4. Break it
 
 **Why:** a workflow that works on the normal case can still do the wrong thing, sometimes without any error.
 
@@ -87,7 +99,7 @@ Each break is something real people do. Full test steps are on the **Tests** tab
 2. Before you run each test, predict what will happen. Who gets an email? What does Rosa see?
 3. Run the test and write what actually happened in the **Starter result** column. Was it obvious something went wrong, or silent?
 
-## 4. Fix it
+## 5. Fix it
 
 **Why:** this is the work of making an automation robust. Decide what should happen, then change the workflow so it does.
 
@@ -102,7 +114,7 @@ Try designing your fix first. If you're stuck, open a hint.
 <details>
 <summary><strong>Hint: the workflow forgets what it sent (breaks 3, 4 and 5)</strong></summary>
 
-Nothing records which references have already been emailed, so every run starts fresh. Add a tab that logs each email sent, and check it before sending. Think carefully about what makes a request unique. Test break 5 after you fix break 3.
+The Processed column remembers form rows, not references. A resubmitted form is a new row, so the workflow treats it as new. Add a tab that logs each reference email sent, and check it before sending. Think carefully about what makes a request unique. Test break 5 after you fix break 3.
 
 When a Google Sheets lookup finds nothing, the node outputs no items and the workflow stops. Turn on **Settings → Always Output Data** on that node to keep going.
 
@@ -133,14 +145,14 @@ Rosa marks withdrawn candidates on the Candidates tab, but Branch 1 never looks 
 
 </details>
 
-## 5. Rerun every test
+## 6. Rerun every test
 
 **Why:** fixes can collide. A fix for one break can quietly cause another, so check them all.
 
 **Steps:**
 
 1. Rerun every test on the Tests tab, including the normal cases.
-2. To rerun a test, first delete the rows it added.
+2. To rerun a test, first delete the rows it added, or clear their Processed cells.
 3. Be ready to show one break before and after your fix when we come back to the main room.
 
 **Done when:** every test you fixed does what the **What should happen** column says, and the normal cases still work.
