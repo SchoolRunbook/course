@@ -326,9 +326,7 @@
             }
           ]
         },
-        "options": {
-          "returnAllMatches": "returnAllMatches"
-        }
+        "options": {}
       },
       "id": "a1b2c3d4-0007-4000-8000-000000000007",
       "name": "Get responses for candidate",
@@ -396,9 +394,9 @@
     {
       "parameters": {
         "sendTo": "PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE",
-        "subject": "=All references are in for {{ $json['Candidate name'] }}",
+        "subject": "=All references are in for {{ $json.Candidate_name }}",
         "emailType": "text",
-        "message": "=All three references are in for {{ $json['Candidate name'] }}. They're on the Reference Responses tab, ready to share with the principal.",
+        "message": "=All three references are in for {{ $json.Candidate_name }}. They're on the Reference Responses tab, ready to share with the principal.",
         "options": {
           "appendAttribution": false
         }

@@ -80,7 +80,9 @@ Complete the steps in order:
    - **Column to match on:** `Timestamp`.
    - **Timestamp (using to match):** drag in **Timestamp** from **Only new responses**, or paste `{{ $json.Timestamp }}`.
    - **Processed:** paste `{{ $now.toFormat('yyyy-MM-dd HH:mm') }}`.
-4. Open **Get responses for candidate**, connect your Google account, and choose your tracker and the **Reference Responses** tab.
+4. Open **Get responses for candidate**, connect your Google account, and choose your tracker and the **Reference Responses** tab. Choosing the tab clears its filter, so add it again under **Filters**:
+   - **Column:** `Candidate name`.
+   - **Value:** paste `{{ $('Only new responses').item.json['Candidate name'] }}`.
 5. Open **Email Rosa** and connect your Google account. Replace `PUT-YOUR-PLUS-ADDRESS-FOR-ROSA-HERE` with the builder's email plus `+rosa`, like `yourname+rosa@gmail.com`.
 6. **Normal 2:** Priya Raman already has 2 of 3 responses. Open the Reference Check form and submit it as her third reference, Nina Brooks, with `Priya Raman` as the candidate name.
 7. Click **Execute workflow** and choose **New reference response**.
