@@ -16,13 +16,13 @@ Complete the steps in order:
 > [!IMPORTANT]
 > **Your team builds one workflow together.** One person builds and shares their screen. Everyone else helps decide what to do.
 >
-> **Design your fixes yourselves.** First, try designing the fix yourself. Discuss amongst yourself what logic you would change to fix it. Then, if you need you can check the hint and ask Claude for help. 
+> **Design your fixes yourselves.** First, try designing the fix yourself. Discuss amongst yourselves what logic you would change to fix it. Then, if you need you can check the hint and ask Claude for help. 
 
 ## 1. Get started
 
 **Why:** everyone starts from the same working workflow
 
-**What you have:** you've been provided with your team's tracker link called **Rosa - Hiring Tracker - Team #**. The tracker has five tabs:
+**What you have:** you've been provided with your team's tracker link called **Rosa - Hiring Tracker - Set #**. The tracker has five tabs:
 
 - **Start here:** links to your team's two forms (B3 and B4) and to the tracker itself (B5).
 - **Candidates:** Rosa's tracker. Rosa keeps the **Status** column up to date by hand.
@@ -32,7 +32,7 @@ Complete the steps in order:
 
 **The starter workflow has two branches:**
 
-- **Branch 1, a candidate sends their references:** this reads the Reference Requests tabs, then sends three emails to each reference. It also marks requests that are processed so that they don't get resent. 
+- **Branch 1, a candidate sends their references:** this reads the Reference Requests tab, then sends one email to each of the three references. It also marks requests that are processed so that they don't get resent. 
 - **Branch 2, a reference responds:** reads the Reference Responses tab, finds every response with the same candidate name, counts them, and emails Rosa when the count reaches 3.
 
 **The Processed column:** both response tabs have one, and the sample rows are already marked. It's how the workflow knows which form submissions it has already handled.
@@ -58,8 +58,8 @@ Complete the steps in order:
 3. Open **Email each reference** and connect your Google account. In the Message box, replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link (Start here, B4).
 4. Open **Mark request processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. If a warning icon shows beside **Values to Update**, click it, then click the refresh icon.
 _Once you complete the steps above, you are ready to run the first test. In your "Tests" tab, you will run the first test which is a "normal" workflow._ 
-6. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
-7. Click **Execute workflow** and choose **New candidate references**.
+5. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
+6. Click **Execute workflow** and choose **New candidate references**.
 
 **Done when:** three reference emails for Jordan arrive in the builder's inbox, and Jordan's row in Reference Requests is marked Processed.
 
@@ -88,7 +88,7 @@ Full test steps are on the **Tests** tab.
 | Break | What happens in real life |
 | --- | --- |
 | 1. A reference submits twice | They aren't sure their first answer went through, so they fill in the form again. |
-| 2. A reference types the candidate name differently | For example, they type "Jordin Ellis" instead of "Jordan Ellis." |
+| 2. A reference types the candidate name differently | For example, they type "Jordon Ellis" instead of "Jordan Ellis." |
 | 3. A candidate resubmits the form | They think their first submission didn't go through. |
 | 4. A candidate corrects one email (harder) | One reference's email bounced, so Rosa asks them to fix it and resubmit. |
 | 5. Two candidates share a reference | A former principal is a reference for two teachers who both applied. |
@@ -96,7 +96,7 @@ Full test steps are on the **Tests** tab.
 
 **Steps:**
 
-1. Fix the break that your team has been assigned. If you finish, pick a second break to fix. 
+1. Start with the break your team has been assigned. When you've fixed it, pick a second break.
 2. Before you run each test, predict what will happen. Who gets an email? What does Rosa see?
 3. Run the test and write what actually happened in the **Starter result** column. Was it obvious something went wrong, or silent?
 
@@ -160,6 +160,6 @@ Rosa marks withdrawn candidates on the Candidates tab, but Branch 1 never looks 
 
 ## Getting help
 
-**Stuck?** Use **Ask for Help** in Zoom, or ask Claude about mechanics like expressions and node settings.
+**Stuck?** Design your fix as a team first. Then check the hint, ask Claude, or use **Ask for Help** in Zoom.
 
 After class, <a href="https://schoolrunbook.fillout.com/schoolrunbook-office-hours" target="_blank" rel="noopener noreferrer">book office hours</a>, or email coaches@schoolrunbook.com.
