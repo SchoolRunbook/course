@@ -23,7 +23,7 @@ Complete the steps in order:
 
 **Why:** everyone starts from the same working workflow
 
-**What you have:** you've been provided with your team's tracker link called **Rosa - Hiring Tracker - Set #**. The tracker has five tabs:
+**What you have:** you've been provided with your team's tracker link called **Rosa - Hiring Tracker - Team #**. The tracker has five tabs:
 
 - **Start here:** links to your team's two forms (B3 and B4) and to the tracker itself (B5).
 - **Candidates:** Rosa's tracker. Rosa keeps the **Status** column up to date by hand.
@@ -85,7 +85,7 @@ _Once you complete the steps above, you are ready to run the first test. In your
 
 **Why:** a workflow that works on the normal case can still do the wrong thing, sometimes without any error.
 
-Every team works on both breaks, starting with Break 1. It's fine if you don't finish Break 2. Full test steps are on the **Tests** tab.
+You will be fixing 2 errors in the workflow. It's fine if you don't finish Break 2. Full test steps are on the **Tests** tab.
 
 | Break | What happens in real life |
 | --- | --- |
