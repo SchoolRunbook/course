@@ -59,7 +59,9 @@ Complete the steps in order:
 3. Open **Email each reference** and connect your Google account.
 4. In the same node's Message box, replace `PASTE YOUR REFERENCE CHECK FORM LINK HERE` with the Reference Check form link (Start here, B4). The email still sends if you skip this, just without the link.
 5. Open **Mark request processed**, connect your Google account, and paste your tracker's link (Start here, B5) under **Document**. The rest of the node is already set up. If a warning icon shows beside **Values to Update**, click it, then click the refresh icon. Leave the other fields under **Values to Update** empty.
+   
 _Once you complete the steps above, you are ready to run the first test. In your "Tests" tab, you will run the first test which is a "normal" workflow._ 
+
 6. **Normal 1:** open the Candidate References form (Start here, B3) and submit it as Jordan Ellis, with Jordan's email (Candidates, C2). For the three references, use any names and your own plus addresses, like `yourname+ref1@gmail.com`, `+ref2` and `+ref3`.
 7. Click **Execute workflow** and choose **New candidate references**.
 
@@ -94,7 +96,7 @@ You will be fixing 2 errors in the workflow. It's fine if you don't finish Break
 
 **Steps:**
 
-1. Before you run the test, predict what will happen. Who gets an email? What does Rosa see?
+1. Start with Break 1. Before you run it, predict what will happen. Who gets an email? What does Rosa see?
 2. Run the test and write what actually happened in the **Starter result** column. Was it obvious something went wrong, or silent?
 
 ## 5. Fix it
@@ -129,6 +131,8 @@ Branch 2 matches responses on a name the reference typed. Don't make them type i
 3. Paste the link into **Email each reference** and replace `CANDIDATE` with `{{ encodeURIComponent($json.candidateName) }}`. Keep the `encodeURIComponent` part: without it, names with a space or an accent, like Tomás Rivera, break the link.
 
 The reference can still edit the filled-in name. What does this fix, and what doesn't it?
+
+To test your fix, submit a new candidate on the Candidate References form and run Branch 1 first, so the reference emails go out with the new link. Jordan's emails from Normal 1 still have the old one.
 
 </details>
 
