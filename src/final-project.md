@@ -99,7 +99,7 @@ Keep your demo to 5 to 10 minutes:
 > [!IMPORTANT]
 > **Submit by Friday, December 11.**
 >
-> Export your workflow as a JSON file, then <a href="FORM_LINK_TBD" target="_blank" rel="noopener noreferrer">submit it using this form</a> with a link to your design doc. Make sure anyone with the link can view your design doc.
+> Export your workflow as a JSON file, then <a href="https://forms.gle/tPscydtY3Nc3MCSE9" target="_blank" rel="noopener noreferrer">submit it using this form</a> with a link to your design doc. Make sure anyone with the link can view your design doc.
 >
 > <a href="project-1-ai-automation.html#export-workflow-json" target="_blank" rel="noopener noreferrer">Find instructions here on how to export your JSON file.</a>
 
