@@ -9,5 +9,7 @@
 
 [Project 2: Observation Feedback](project-2-observations.md)
 
+[Final Project](final-project.md)
+
 
 
