@@ -103,6 +103,41 @@ Keep your demo to 5 to 10 minutes:
 >
 > <a href="project-1-ai-automation.html#export-workflow-json" target="_blank" rel="noopener noreferrer">Find instructions here on how to export your JSON file.</a>
 
+## FAQs
+
+### Can I use real school data?
+Please use dummy data while you build and test. Don't put student or staff personal information into the shared workspace. Claude can help you generate dummy data.
+
+### Which AI credentials should I use for the final project?
+We recommend you keep using our n8n and AI credentials from the course. After the demo, you can export your workflow as a JSON file (you'll need it for your submission anyway), import it into your own n8n, and reconnect your school's credentials there.
+
+### What does my school need to do before using n8n with real data?
+At a minimum: sign n8n's Data Processing Agreement (like you would for Google Workspace), don't store personal information in n8n (keep it in Sheets or Drive), and set execution logs to delete automatically.
+
+### Can I build my final project as a team?
+Yes, you can build with a team. Each team member needs to submit individually.
+
+### Where do I start?
+Pick one painful, routine task in your school and build that end to end first. Add extras later. If your process uses several tools, copy them into one test Google Drive folder so you're not working on live files, then build one step at a time.
+
+### Should I use an n8n form or a Google Form?
+We recommend a Google Form. Your responses stay in your school's Google Workspace, and you can limit the form to people in your school's domain.
+
+### How do I avoid mistakes in my automation?
+Think about what might be missing, repeated or written differently in your data, and ask Claude to help you plan for each case. Match records using something unique, like an email address, rather than names. Add a check step before anything goes out, and start with drafts a person reviews instead of auto-sending.
+
+### How can I see what my automation has done?
+Have your workflow add a row to a log sheet each time it runs, with what it did and any problems it found. It's easier to check than going through emails or rerunning the workflow.
+
+### Can Claude help with my final project?
+Yes. Use your "SchoolRunbook projects" Project in Claude to plan and build your automation and to help write your design doc. The design decisions are yours. Claude is your co-builder.
+
+### How do I submit, and what do I need for the certificate?
+Submit by Friday, Dec 11. Export your workflow as a JSON file and submit it with a link to your design doc (make sure anyone with the link can view it). To earn the badge and certificate, finish and submit all project assignments and your final project.
+
+### Can I still submit Projects 1 and 2 if the deadline has passed?
+Yes. Each project page has a submission form, and you can still submit after the deadline.
+
 ## Getting help
 
 Office hours run through Demo Day, and they're there for you to use. Book a time to:
