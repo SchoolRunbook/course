@@ -105,40 +105,86 @@ Keep your demo to 5 to 10 minutes:
 
 ## FAQs
 
-### Can I use real school data?
+### Data and privacy
+
+<details>
+<summary><strong>Can I use real school data?</strong></summary>
+
 Please use dummy data while you build and test. Don't put student or staff personal information into the shared workspace. Claude can help you generate dummy data.
+</details>
 
-### Which AI credentials should I use for the final project?
-We recommend you keep using our n8n and AI credentials from the course. After the demo, you can export your workflow as a JSON file (you'll need it for your submission anyway), import it into your own n8n, and reconnect your school's credentials there.
+<details>
+<summary><strong>Which AI credentials should I use for the final project?</strong></summary>
 
-### What does my school need to do before using n8n with real data?
+We recommend you keep using our n8n and AI credentials from the course. After the demo, you can export your workflow as a JSON file (you'll need it for your submission anyway), import it into your own n8n, and reconnect your school's credentials there. We'll share more details on moving your workflow at Demo Day.
+</details>
+
+<details>
+<summary><strong>What does my school need to do before using n8n with real data?</strong></summary>
+
 At a minimum: sign n8n's Data Processing Agreement (like you would for Google Workspace), don't store personal information in n8n (keep it in Sheets or Drive), and set execution logs to delete automatically.
+</details>
 
-### Can I build my final project as a team?
-Yes, you can build with a team. Each team member needs to submit individually.
+### Planning and building
 
-### Where do I start?
+<details>
+<summary><strong>Can I build my final project as a team?</strong></summary>
+
+Yes, you can build with a team. Each team member needs to submit individually, but you only need one demo per team.
+</details>
+
+<details>
+<summary><strong>Where do I start?</strong></summary>
+
 Pick one painful, routine task in your school and build that end to end first. Add extras later. If your process uses several tools, copy them into one test Google Drive folder so you're not working on live files, then build one step at a time.
+</details>
 
-### Should I use an n8n form or a Google Form?
+<details>
+<summary><strong>Can I connect a tool we haven't used in class, like an HR system or my SIS?</strong></summary>
+
+Yes, and we highly encourage it. Ask Claude whether your tool has an n8n node or an API, and what access you'll need. Your IT team may need to give you an API key or permissions. Keep using dummy data while you build.
+</details>
+
+<details>
+<summary><strong>Should I use an n8n form or a Google Form?</strong></summary>
+
 We recommend a Google Form. Your responses stay in your school's Google Workspace, and you can limit the form to people in your school's domain.
+</details>
 
-### How do I avoid mistakes in my automation?
+<details>
+<summary><strong>How do I avoid mistakes in my automation?</strong></summary>
+
 Think about what might be missing, repeated or written differently in your data, and ask Claude to help you plan for each case. Match records using something unique, like an email address, rather than names. Add a check step before anything goes out, and start with drafts a person reviews instead of auto-sending.
+</details>
 
-### How can I see what my automation has done?
+<details>
+<summary><strong>How can I see what my automation has done?</strong></summary>
+
 Have your workflow add a row to a log sheet each time it runs, with what it did and any problems it found. It's easier to check than going through emails or rerunning the workflow.
+</details>
 
-### Can Claude help with my final project?
+<details>
+<summary><strong>Can Claude help with my final project?</strong></summary>
+
 Yes. Use your "SchoolRunbook projects" Project in Claude to plan and build your automation and to help write your design doc. The design decisions are yours. Claude is your co-builder.
+</details>
 
-### How do I submit, and what do I need for the certificate?
+### Submitting
+
+<details>
+<summary><strong>How do I submit, and what do I need for the certificate?</strong></summary>
+
 Submit by Friday, Dec 11. Export your workflow as a JSON file and submit it with a link to your design doc (make sure anyone with the link can view it). To earn the badge and certificate, finish and submit all project assignments and your final project.
+</details>
 
-### Can I still submit Projects 1 and 2 if the deadline has passed?
+<details>
+<summary><strong>Can I still submit Projects 1 and 2 if the deadline has passed?</strong></summary>
+
 Yes. Each project page has a submission form, and you can still submit after the deadline.
+</details>
 
 ## Getting help
+
 
 Office hours run through Demo Day, and they're there for you to use. Book a time to:
 
